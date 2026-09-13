@@ -1,0 +1,1757 @@
+Project Name :
+ProManage
+Multi-tenant SaaS Project Management + Billing Platform
+Think mini Jira/Linear + Slack-ish collaboration. Features: auth, organizations/workspaces, roles & permissions, invitations, projects/tasks, comments, attachments, notifications, activity logs, search/filtering, subscription plans, usage limits, admin panel, background jobs, emails, pagination, rate limiting, audit logs, API versioning, tests, Docker, CI/CD, monitoring. Is se tum React/Next frontend, backend APIs, SQL/database design, RBAC, caching, queues, security, testing aur deployment almost sab revise kar loge.
+
+which things we work on what we learn 
+
+Yes, **MERN + Redis** will be our base. And we’ll design the project in a way that you don’t just build an app, but actually **revise production-level Full Stack Engineering**.
+
+## 🥇 Project #1 — Multi-Tenant SaaS / Project Management Platform
+
+Think: **a simplified production-grade version of Linear/Jira**.
+
+Companies/workspaces will be able to create teams, create projects, assign tasks, add comments/attachments, receive notifications, and have subscription/usage limits.
+
+### 🧱 Your Core Stack
+
+| Layer           | Technology                       |
+| --------------- | -------------------------------- |
+| Frontend        | **React + JavaScript**           |
+| UI              | Tailwind CSS + component library |
+| State           | Redux Toolkit / React Query      |
+| Backend         | **Node.js + Express.js**         |
+| Database        | **MongoDB + Mongoose**           |
+| Cache           | **Redis**                        |
+| Real-time       | **Socket.IO**                    |
+| Auth            | JWT + Refresh Tokens             |
+| Password        | bcrypt                           |
+| Validation      | Zod / Joi                        |
+| Files           | Cloudinary / S3                  |
+| Emails          | Nodemailer / Resend              |
+| Background Jobs | BullMQ + Redis                   |
+| API Docs        | Swagger/OpenAPI                  |
+| Testing         | Jest + Supertest + Playwright    |
+| Security        | Helmet + CORS + rate limiting    |
+| Logging         | Winston/Pino                     |
+| Deployment      | Docker + GitHub Actions          |
+| Server          | AWS                              |
+| Reverse Proxy   | Nginx                            |
+
+**But:** we will not install all of these on day one. We’ll introduce them according to the requirements of each feature.
+
+---
+
+# 🔥 What will you revise from this ONE project?
+
+### 1. JavaScript — proper fundamentals
+
+You’ll genuinely use JavaScript again:
+
+* `var / let / const`
+* scope
+* closures
+* callbacks
+* promises
+* `async/await`
+* event loop
+* synchronous vs asynchronous
+* error handling
+* destructuring
+* spread/rest
+* map/filter/reduce
+* modules
+* classes
+* prototypes/basic OOP
+
+Especially on the backend, asynchronous programming will be used constantly.
+
+---
+
+# 2. React — actual application architecture
+
+Not just building components.
+
+You’ll handle:
+
+* Components
+* Props
+* State
+* Hooks
+* `useEffect`
+* `useMemo`
+* `useCallback`
+* Custom hooks
+* Forms
+* Form validation
+* API integration
+* Loading/error states
+* Optimistic updates
+* Pagination
+* Infinite scrolling
+* Protected routes
+* Role-based UI
+* Reusable components
+
+Example:
+
+```text
+Login
+   ↓
+Dashboard
+   ↓
+Workspace
+   ↓
+Projects
+   ↓
+Project
+   ↓
+Tasks
+   ↓
+Task Details
+   ↓
+Comments
+```
+
+Here you’ll understand how to **properly organize a large React application.**
+
+---
+
+# 3. Node.js + Express — backend properly
+
+This is where most of the learning will happen.
+
+You’ll implement this flow yourself:
+
+```text
+Request
+   ↓
+Route
+   ↓
+Middleware
+   ↓
+Controller
+   ↓
+Service
+   ↓
+Database
+   ↓
+Response
+```
+
+You’ll learn:
+
+* Express routing
+* Middleware
+* Controllers
+* Services
+* Error handling
+* Request validation
+* Authentication
+* Authorization
+* File upload
+* API design
+* Pagination
+* Filtering
+* Sorting
+* Search
+* Transactions/concurrency considerations
+* HTTP status codes
+* API versioning
+
+---
+
+# 4. MongoDB — not just CRUD
+
+This is very important.
+
+You’ll design:
+
+```text
+User
+Workspace
+Membership
+Project
+Task
+Comment
+Notification
+Subscription
+ActivityLog
+```
+
+Then you’ll learn:
+
+### Relationships
+
+```text
+Workspace
+   ├── Users
+   ├── Projects
+   │     └── Tasks
+   │           └── Comments
+   └── Activity Logs
+```
+
+With MongoDB:
+
+* Embedding vs referencing
+* Indexes
+* Compound indexes
+* Aggregation
+* `$lookup`
+* Pagination
+* Query optimization
+* Mongoose schemas
+* Population
+* Validation
+* Atomic updates
+
+And most importantly:
+
+> **"Why did we design this data this way in MongoDB?"**
+
+This develops production thinking.
+
+---
+
+# 5. Authentication 🔐
+
+We’ll build a proper authentication system.
+
+```text
+Register
+   ↓
+Email verification
+   ↓
+Login
+   ↓
+Access Token
+   +
+Refresh Token
+```
+
+Features:
+
+* Register
+* Login
+* Logout
+* Refresh token
+* Forgot password
+* Reset password
+* Email verification
+* Change password
+* Session management
+* Protected routes
+
+Then security:
+
+* Password hashing
+* Token expiry
+* Refresh token rotation
+* HTTP-only cookies
+* CSRF considerations
+* Brute-force protection
+* Rate limiting
+
+Here you’ll understand that **authentication ≠ authorization**.
+
+---
+
+# 6. RBAC — extremely important in the industry
+
+A workspace can have:
+
+```text
+OWNER
+ADMIN
+MANAGER
+MEMBER
+VIEWER
+```
+
+Example:
+
+```text
+OWNER
+ ├── manage billing
+ ├── delete workspace
+ └── manage admins
+
+ADMIN
+ ├── manage members
+ └── manage projects
+
+MEMBER
+ ├── create tasks
+ └── comment
+
+VIEWER
+ └── read only
+```
+
+Actual authorization on the backend:
+
+```text
+Authentication
+      ↓
+Who are you?
+      ↓
+Authorization
+      ↓
+What are you allowed to do?
+```
+
+This will be **extremely valuable for your real-world backend work.**
+
+---
+
+# 7. Redis 🔥
+
+We won’t use Redis just because "every project needs caching."
+
+### Cache
+
+```text
+Request
+ ↓
+Redis?
+ ↓
+YES → return
+ ↓
+NO
+ ↓
+MongoDB
+ ↓
+Store in Redis
+```
+
+### Rate limiting
+
+```text
+IP/User
+ ↓
+Redis counter
+ ↓
+100 requests?
+ ↓
+429 Too Many Requests
+```
+
+### Sessions / token-related data
+
+We can also use Redis for temporary/session-related storage.
+
+### OTP
+
+```text
+Generate OTP
+ ↓
+Redis
+ ↓
+5 minutes expiry
+```
+
+---
+
+# 8. Background Jobs 🚀
+
+Here we’ll introduce **BullMQ + Redis**.
+
+For example, a user invites 100 employees.
+
+Bad architecture:
+
+```text
+API request
+ ↓
+send 100 emails
+ ↓
+response
+```
+
+Better:
+
+```text
+API
+ ↓
+Queue
+ ↓
+Response immediately
+```
+
+Background worker:
+
+```text
+BullMQ
+ ↓
+Email Job
+ ↓
+Send email
+```
+
+You’ll learn:
+
+* Queues
+* Workers
+* Retry
+* Failed jobs
+* Delayed jobs
+* Job priority
+* Backoff
+* Idempotency
+
+This is an important part of **production backend engineering**.
+
+---
+
+# 9. Real-time system ⚡
+
+A task is assigned:
+
+```text
+User A
+   ↓
+Backend
+   ↓
+Socket.IO
+   ↓
+User B
+```
+
+Notification:
+
+> "Abeer assigned you a task."
+
+Without refreshing the page.
+
+Real-time features:
+
+* Notifications
+* Task updates
+* Comments
+* Presence
+* Activity feed
+
+You’ll understand the practical difference between **WebSockets and HTTP**.
+
+---
+
+# 10. File Uploads
+
+User:
+
+```text
+Upload profile picture
+Upload task attachment
+```
+
+Flow:
+
+```text
+React
+ ↓
+Node
+ ↓
+Cloudinary/S3
+ ↓
+URL
+ ↓
+MongoDB
+```
+
+You’ll learn:
+
+* multipart/form-data
+* file validation
+* file size limits
+* MIME types
+* cloud storage
+* secure upload
+* deleting old files
+
+---
+
+# 11. Search + Filtering
+
+Projects can have:
+
+```text
+Search: payment
+Status: In Progress
+Priority: High
+Assignee: Abeer
+Due date: This week
+```
+
+Backend:
+
+```text
+GET /api/tasks?
+search=payment
+&status=in_progress
+&priority=high
+&assignee=123
+&page=2
+```
+
+This teaches you:
+
+* Query params
+* Dynamic Mongo queries
+* Indexes
+* Pagination
+* Filtering
+* Sorting
+
+properly.
+
+---
+
+# 12. API Design
+
+Your API will look something like:
+
+```text
+/api/v1/auth
+/api/v1/users
+/api/v1/workspaces
+/api/v1/projects
+/api/v1/tasks
+/api/v1/comments
+/api/v1/notifications
+/api/v1/subscriptions
+```
+
+And we’ll standardize responses:
+
+```json
+{
+  "success": true,
+  "data": {},
+  "message": "Task created successfully"
+}
+```
+
+Errors:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "TASK_NOT_FOUND",
+    "message": "Task does not exist"
+  }
+}
+```
+
+This will teach you **professional API design**.
+
+---
+
+# 13. Testing 🧪
+
+This part will **not be skipped**.
+
+### Unit tests
+
+```text
+calculateUsage()
+checkPermission()
+validateTask()
+```
+
+### Integration tests
+
+```text
+POST /api/v1/tasks
+```
+
+Check:
+
+```text
+Authenticated?
+Permission?
+Validation?
+Database?
+Response?
+```
+
+### E2E
+
+Actual browser flow:
+
+```text
+Login
+ ↓
+Create project
+ ↓
+Create task
+ ↓
+Assign user
+ ↓
+Comment
+ ↓
+Logout
+```
+
+This will teach you:
+
+**"Code works" ≠ "software is reliable."**
+
+---
+
+# 14. Security 🔒
+
+The most important part of a production-level project.
+
+You’ll implement/research:
+
+* XSS
+* CSRF
+* CORS
+* NoSQL injection
+* Rate limiting
+* Helmet
+* Secure cookies
+* Password hashing
+* JWT security
+* Input validation
+* Authorization bypass
+* IDOR
+* File upload security
+* Secrets management
+
+And manually test:
+
+> "If I send someone else's `projectId`, can I access their project?"
+
+🔥 This kind of thinking turns you from a **vibe coder into an engineer**.
+
+---
+
+# 15. Docker 🐳
+
+Local environment:
+
+```text
+React
+Node
+MongoDB
+Redis
+Worker
+```
+
+Docker Compose:
+
+```text
+docker-compose.yml
+
+frontend
+backend
+mongodb
+redis
+worker
+```
+
+Then:
+
+```bash
+docker compose up
+```
+
+And the entire environment runs.
+
+---
+
+# 16. CI/CD
+
+GitHub:
+
+```text
+git push
+     ↓
+GitHub Actions
+     ↓
+Lint
+     ↓
+Tests
+     ↓
+Build
+     ↓
+Docker image
+     ↓
+Deploy
+```
+
+Here you’ll understand a proper development workflow.
+
+---
+
+# 17. Production deployment
+
+Finally:
+
+```text
+Internet
+   ↓
+Nginx
+   ↓
+React
+   ↓
+Node API
+   ↓
+MongoDB
+   ↓
+Redis
+```
+
+And background processing:
+
+```text
+Node API
+   ↓
+Redis Queue
+   ↓
+Worker
+```
+
+Then:
+
+* Environment variables
+* HTTPS
+* Domain
+* Process management
+* Logs
+* Monitoring
+* Health checks
+* Backups
+* Deployment strategy
+
+---
+
+# 🧠 And most importantly: Architecture
+
+By the end of the project, you should naturally understand this flow:
+
+```text
+                    ┌──────────────┐
+                    │    React     │
+                    └──────┬───────┘
+                           │
+                       HTTPS/API
+                           │
+                    ┌──────▼───────┐
+                    │    Nginx     │
+                    └──────┬───────┘
+                           │
+                    ┌──────▼───────┐
+                    │ Node/Express  │
+                    └───┬────┬──────┘
+                        │    │
+                 ┌──────▼┐  ┌▼─────────┐
+                 │ Mongo │  │  Redis   │
+                 └───────┘  └────┬─────┘
+                                 │
+                           ┌─────▼─────┐
+                           │ BullMQ    │
+                           │ Workers   │
+                           └───────────┘
+```
+
+And you should be able to explain every arrow:
+
+**"Why is the request going here? Why is Redis here? Why is the worker here? Why is this data in MongoDB? Why did we use Socket.IO? Why did we use a queue?"**
+
+---
+
+## 🎯 We’ll build this project in 10 phases
+
+**Phase 1:** JS + project setup
+**Phase 2:** React architecture + UI
+**Phase 3:** Node/Express + REST API
+**Phase 4:** MongoDB + data modelling
+**Phase 5:** Authentication + RBAC
+**Phase 6:** Projects/Tasks/Comments + business logic
+**Phase 7:** Redis + caching + rate limiting
+**Phase 8:** Queues + emails + real-time Socket.IO
+**Phase 9:** Testing + security + performance
+**Phase 10:** Docker + CI/CD + AWS + production
+
+And **AI's role will only be as a reviewer/mentor**.
+
+You will write the code yourself.
+
+If you get stuck:
+
+> "Give me a hint, not the solution."
+
+Then if there is a bug:
+
+> "Don't fix my code. First tell me which layer the bug is in and give me debugging steps."
+
+**This exact approach will bring your manual coding muscle back.**
+
+And honestly, considering your existing professional experience, I think a **basic Todo/Blog/E-commerce project would be a waste of time for you**. This SaaS project is a much better reset.
+
+
+
+This Software is for 
+
+
+Bilkul. **ProManage** ko hum normal “Jira clone” nahi banayenge. Isko tumhara **production-level Full Stack training project** samjho jahan actual company/team ka complete workflow chalega.
+
+![Image](https://images.openai.com/static-rsc-4/VZQC57bIB85aNNO62s5nVYADpa330qchbbjof8I5dIH9VFqs74y_WENp7msy_0-yE7HRRWW0Nz0Sosidl_sTiiu6Euf4Ip1S5Wvus2Iycu-W8FFL3BNuGwczfD1vommNW5gglvbCOWAlSC6vbm760aDIZ_TmoRlTKKH8FZx4opKbPEUMmtl5wT18kJ9BxX_2?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/uSZz4tFnc8-dobiTpo5Bm633X8mC7evKyF7LNbYcoRkkUfTXdZQYO6N0rSpD71v6_zIHKHjqGom3cHD4xrUnn-NIPpcrxVAjnJrSzLL6-X7f51cK0obMsiWh4FnZ6A-Ie573xYSfJoulKASnd5dqxmZ-9TT_L8ZMRB-d4tFqiPTeL4ZfR8JIntQeEpVgEtY2?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/2waK9Nd5YEtz6JX3qKXQtGnVO6vQaSLn72VlLTVi6Nh7PXldnhQaGZB8UPtfEmCvqnTEnyx7GemLUNvA6xXXLfSegVsxMr9lWwUKK1FFP2zzKA9hv0_2t0l-r2rZbO5BF_05kXBw1D_xssMF14D1t2Nmz1TTU5Bz7cFZfi4fHtxZA67Fkg_gAf57UwoJSvg0?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/qwUhb8p38AaTYr-HssOIXH3QCFK8DtbNiYG6uGfis7xRrAQz_ikszLPsRhBNQ5yNsVRScm37GoDfMe9dLFAyF7nwcpFeC66ST1SMerYMsgGcvUtgsaG13WiSojAIpSVHlA5TDL6nW-pv9y6kZDIS0URCCOfCKigL9qCjkqByFYkzSHxqX-FvGSg-yf3fMmdy?purpose=fullsize)
+
+![Image](https://images.openai.com/static-rsc-4/vNeNjIOK2EEAQcZaOCMIQ1qBnM3d_nUtLfsFHpsfcCvQltm5siT1OnHwUKdu9qGCSUFOHZlCEMVWmvaA-VsNc2ZlyQlNLM6CTAnUdccNjO7mNCpFEwCFALpP7l1joOg33Ev7Uz0pLV8v42bsIf62-_tBE4eLUVKpGR0-ym5nk9kxDl9lTcI11yfS03DswaP2?purpose=fullsize)
+
+# 🚀 ProManage — Project Management SaaS
+
+### Simple concept
+
+Companies ProManage par account banayengi.
+
+Phir:
+
+```text
+Company
+   ↓
+Workspace
+   ↓
+Team Members
+   ↓
+Projects
+   ↓
+Tasks
+   ↓
+Comments / Files
+   ↓
+Notifications
+   ↓
+Reports / Analytics
+```
+
+Example:
+
+**ABC Software House** ProManage join karti hai.
+
+Uska workspace:
+
+```text
+ABC Software House
+
+Members:
+├── Ali        → Admin
+├── Abeer      → Manager
+├── Hamza      → Developer
+└── Sara       → Designer
+
+Projects:
+├── Website Redesign
+├── Mobile App
+└── CRM System
+```
+
+---
+
+# 1️⃣ Authentication System
+
+User sab se pehle account banayega.
+
+### Register
+
+```text
+Name
+Email
+Password
+Confirm Password
+```
+
+Phir:
+
+```text
+Register
+   ↓
+Email Verification
+   ↓
+Login
+   ↓
+Dashboard
+```
+
+Features:
+
+* Register
+* Login
+* Logout
+* Email verification
+* Forgot password
+* Reset password
+* Change password
+* Refresh token
+* Session management
+
+### Tum kya seekhoge?
+
+**JWT, cookies, refresh tokens, password hashing, authentication middleware, security.**
+
+---
+
+# 2️⃣ Workspace / Organization
+
+Login ke baad user workspace create karega.
+
+Example:
+
+> "My Software Company"
+
+Workspace basically company ka isolated environment hoga.
+
+```text
+Workspace A
+ ├── Users
+ ├── Projects
+ ├── Tasks
+ └── Settings
+
+Workspace B
+ ├── Users
+ ├── Projects
+ ├── Tasks
+ └── Settings
+```
+
+Aur sabse important:
+
+### Workspace A ka user Workspace B ka data nahi dekh sakta.
+
+Yahan tum **multi-tenancy** seekhoge.
+
+Ye industry mein bohot important concept hai.
+
+---
+
+# 3️⃣ Team Members + Invitations
+
+Admin kisi ko invite karega:
+
+```text
+Invite Member
+
+Email: developer@gmail.com
+Role: Developer
+```
+
+System:
+
+```text
+API
+ ↓
+Create Invitation
+ ↓
+Queue
+ ↓
+Email
+ ↓
+User clicks invitation
+ ↓
+Account activated
+ ↓
+Workspace joined
+```
+
+Yahan tum:
+
+* Email
+* Tokens
+* Expiration
+* Background jobs
+* Redis
+* Queue
+
+sab use karoge.
+
+---
+
+# 4️⃣ Roles & Permissions 🔐
+
+Workspace mein different roles:
+
+```text
+Owner
+Admin
+Manager
+Member
+Viewer
+```
+
+Example:
+
+### Owner
+
+Everything.
+
+### Admin
+
+```text
+Manage members
+Manage projects
+Workspace settings
+```
+
+### Manager
+
+```text
+Create projects
+Assign tasks
+Manage team
+```
+
+### Member
+
+```text
+View projects
+Create tasks
+Update assigned tasks
+Comment
+```
+
+### Viewer
+
+```text
+Read only
+```
+
+Aur **permission backend par enforce hogi**, sirf React mein button hide nahi karenge.
+
+---
+
+# 5️⃣ Projects
+
+Manager project create karega:
+
+```text
+Project
+----------------
+Name
+Description
+Start Date
+Due Date
+Status
+Priority
+Members
+```
+
+Example:
+
+```text
+Website Redesign
+
+Status: In Progress
+Priority: High
+
+Team:
+Abeer
+Hamza
+Sara
+```
+
+Project ke andar tasks hongay.
+
+---
+
+# 6️⃣ Task Management — Project ka main feature
+
+Task:
+
+```text
+Fix Login API
+
+Description:
+Fix refresh token issue.
+
+Priority:
+High
+
+Status:
+In Progress
+
+Assignee:
+Hamza
+
+Due Date:
+September 10
+```
+
+Statuses:
+
+```text
+TODO
+IN_PROGRESS
+IN_REVIEW
+DONE
+```
+
+Priority:
+
+```text
+LOW
+MEDIUM
+HIGH
+URGENT
+```
+
+---
+
+# 7️⃣ Kanban Board 🔥
+
+Project ka visual board:
+
+```text
+┌─────────────┬─────────────┬─────────────┬─────────────┐
+│    TODO     │ IN PROGRESS │  IN REVIEW  │    DONE     │
+├─────────────┼─────────────┼─────────────┼─────────────┤
+│ Login UI    │ Auth API    │ Dashboard   │ Database    │
+│ Navbar      │ Redis       │ Profile     │ Setup       │
+│ Settings    │ WebSocket   │             │             │
+└─────────────┴─────────────┴─────────────┴─────────────┘
+```
+
+Task drag karo:
+
+```text
+TODO
+ ↓
+IN_PROGRESS
+```
+
+API call hogi.
+
+Later real-time update bhi:
+
+```text
+Abeer moves task
+        ↓
+Backend
+        ↓
+Socket.IO
+        ↓
+Hamza's screen
+        ↓
+Task automatically moves
+```
+
+🔥 Yahan React + Node + Mongo + WebSocket ek saath kaam karenge.
+
+---
+
+# 8️⃣ Task Details
+
+Task open karne par:
+
+```text
+Task #1024
+
+Fix authentication bug
+
+Description
+----------------
+...
+
+Assignee
+Hamza
+
+Priority
+High
+
+Due date
+10 Sep
+
+Attachments
+auth-error.png
+logs.txt
+
+Comments
+----------------
+Ali:
+Please investigate refresh token.
+
+Hamza:
+Working on it.
+```
+
+Yahan tum:
+
+* Comments
+* Attachments
+* Activity
+* Assignee
+* Status
+* Priority
+* Due dates
+
+implement karoge.
+
+---
+
+# 9️⃣ Comments + Mentions
+
+User comment kare:
+
+> `@Hamza please check this API.`
+
+System notification:
+
+```text
+Hamza has been mentioned
+```
+
+Notification:
+
+```text
+🔔 Abeer mentioned you in "Fix authentication bug"
+```
+
+Yahan tum real-world interaction systems seekhoge.
+
+---
+
+# 🔟 Notifications 🔔
+
+Notification center:
+
+```text
+Notifications
+
+🔵 You were assigned a task
+🔵 Abeer mentioned you
+🔵 Task moved to Review
+🔵 New comment on your task
+🔵 Project deadline tomorrow
+```
+
+Kuch notifications real-time:
+
+```text
+Backend
+   ↓
+Socket.IO
+   ↓
+React
+   ↓
+Notification appears
+```
+
+Aur email notification background queue se.
+
+---
+
+# 1️⃣1️⃣ Activity / Audit Log
+
+Ye **production-level feature** hai.
+
+Workspace mein jo important action ho uska record:
+
+```text
+Abeer created project "CRM"
+
+Hamza was assigned task #102
+
+Sara changed task status:
+TODO → IN_PROGRESS
+
+Ali removed Hamza from project
+```
+
+Admin dekh sakta hai:
+
+```text
+Activity Log
+--------------------------------
+User     Action              Time
+Abeer    Created project     10:30
+Hamza    Updated task       10:35
+Sara     Added comment      10:41
+```
+
+Isse tum **auditability** samjhoge.
+
+---
+
+# 1️⃣2️⃣ Search 🔎
+
+Global search:
+
+```text
+Search ProManage...
+
+"authentication"
+```
+
+Results:
+
+```text
+Projects
+Tasks
+Comments
+Members
+```
+
+Phir advanced filtering:
+
+```text
+Status: In Progress
+Priority: High
+Assignee: Hamza
+Due: This Week
+```
+
+Yahan MongoDB queries + indexes + pagination properly use hongi.
+
+---
+
+# 1️⃣3️⃣ Redis 🔥
+
+Redis multiple jagah use karenge.
+
+### Cache
+
+```text
+GET dashboard
+
+React
+ ↓
+Node
+ ↓
+Redis?
+ ↓
+YES → return
+```
+
+### OTP
+
+```text
+OTP
+ ↓
+Redis
+ ↓
+Expire after 5 min
+```
+
+### Rate limiting
+
+```text
+User
+ ↓
+Redis counter
+ ↓
+Too many requests
+ ↓
+429
+```
+
+### Queue
+
+```text
+Redis
+ ↓
+BullMQ
+ ↓
+Worker
+```
+
+---
+
+# 1️⃣4️⃣ Background Jobs
+
+Suppose 500 members ko email invitation bhejni hai.
+
+API ko 500 emails send nahi karne chahiye.
+
+Instead:
+
+```text
+User clicks Invite
+        ↓
+API
+        ↓
+Queue Job
+        ↓
+Immediate response
+```
+
+Worker:
+
+```text
+BullMQ
+ ↓
+Email Worker
+ ↓
+Send emails
+```
+
+Agar email fail:
+
+```text
+Retry
+ ↓
+Retry
+ ↓
+Retry
+ ↓
+Failed Job
+```
+
+Tum seekhoge:
+
+* queues
+* workers
+* retries
+* backoff
+* delayed jobs
+* failed jobs
+* idempotency
+
+---
+
+# 1️⃣5️⃣ File Upload
+
+Task mein attachment:
+
+```text
+Upload Screenshot
+```
+
+Flow:
+
+```text
+React
+ ↓
+Node
+ ↓
+Cloudinary / S3
+ ↓
+File URL
+ ↓
+MongoDB
+```
+
+Database mein actual 20MB file nahi:
+
+```json
+{
+  "name": "error.png",
+  "url": "...",
+  "size": 245000
+}
+```
+
+---
+
+# 1️⃣6️⃣ Dashboard 📊
+
+Workspace dashboard:
+
+```text
+Projects             12
+Active Tasks         87
+Completed            243
+Overdue              9
+Team Members         24
+```
+
+Charts:
+
+```text
+Tasks Completed
+     │
+ 100 │           ╭──
+  80 │       ╭───╯
+  60 │   ╭───╯
+  40 │───╯
+     └────────────────
+       Mon Tue Wed Thu
+```
+
+Manager ko pata chalega:
+
+* Team productivity
+* Completed tasks
+* Overdue tasks
+* Project progress
+* Member workload
+
+---
+
+# 1️⃣7️⃣ Subscription / Usage Limits
+
+Ye project ko **real SaaS** banayega.
+
+Plans:
+
+```text
+FREE
+-----
+3 Projects
+5 Members
+100 Tasks
+
+
+PRO
+-----
+Unlimited Projects
+50 Members
+10,000 Tasks
+
+
+BUSINESS
+-----
+Unlimited
+Advanced Analytics
+Priority Support
+```
+
+Example:
+
+Free user:
+
+```text
+Projects: 3 / 3
+
+[Create Project]
+
+→ 403 LIMIT_REACHED
+```
+
+Backend actual limit enforce karega.
+
+---
+
+# 1️⃣8️⃣ API Rate Limiting
+
+Example:
+
+```text
+Login API
+5 attempts / minute
+```
+
+Agar attacker:
+
+```text
+100 requests
+```
+
+to:
+
+```text
+429 Too Many Requests
+```
+
+Redis yahan kaam karega.
+
+---
+
+# 1️⃣9️⃣ Testing 🧪
+
+Hum tests bhi likhenge.
+
+### Unit
+
+```text
+hasPermission()
+calculateProjectProgress()
+checkSubscriptionLimit()
+```
+
+### Integration
+
+```text
+POST /projects
+
+GET /tasks
+
+PATCH /tasks/:id
+```
+
+### E2E
+
+Actual browser:
+
+```text
+Register
+ ↓
+Login
+ ↓
+Create Workspace
+ ↓
+Create Project
+ ↓
+Create Task
+ ↓
+Assign Member
+ ↓
+Move Task
+ ↓
+Comment
+ ↓
+Logout
+```
+
+---
+
+# 2️⃣0️⃣ Security
+
+Intentionally security test karenge.
+
+Example:
+
+User A:
+
+```text
+GET /api/tasks/123
+```
+
+Task 123 Workspace B ka hai.
+
+Backend ko:
+
+```text
+403 Forbidden
+```
+
+dena chahiye.
+
+Sirf:
+
+```js
+if (user) {
+   return task;
+}
+```
+
+nahi.
+
+Check:
+
+```text
+User authenticated?
+        ↓
+Workspace member?
+        ↓
+Has permission?
+        ↓
+Task belongs to workspace?
+        ↓
+Return data
+```
+
+Yahan tum **IDOR, authorization bugs, injection, XSS, CSRF, CORS, rate limiting** etc. practically samjhoge.
+
+---
+
+# 2️⃣1️⃣ Production Architecture
+
+End mein project kuch aisa hoga:
+
+```text
+                    INTERNET
+                       │
+                       ▼
+                    NGINX
+                       │
+              ┌────────┴────────┐
+              ▼                 ▼
+           React             Node API
+                                │
+                    ┌───────────┼───────────┐
+                    ▼           ▼           ▼
+                 MongoDB      Redis       S3
+                                │
+                                ▼
+                              BullMQ
+                                │
+                                ▼
+                              Worker
+                                │
+                                ▼
+                              Email
+```
+
+Aur Docker:
+
+```text
+docker-compose.yml
+
+frontend
+backend
+worker
+mongodb
+redis
+```
+
+---
+
+# 🧠 Is project ka asli purpose
+
+Tum sirf **ProManage banana** nahi seekh rahe.
+
+Tum ye seekh rahe ho:
+
+```text
+Requirement
+     ↓
+Architecture
+     ↓
+Database Design
+     ↓
+API Design
+     ↓
+Business Logic
+     ↓
+Frontend
+     ↓
+Authentication
+     ↓
+Authorization
+     ↓
+Caching
+     ↓
+Queues
+     ↓
+Real-time
+     ↓
+Testing
+     ↓
+Security
+     ↓
+Docker
+     ↓
+CI/CD
+     ↓
+Deployment
+     ↓
+Monitoring
+```
+
+### Aur sabse important:
+
+**Main tumhein code provide karke project complete nahi karwaunga.**
+
+Hum isko actual developer workflow ki tarah karenge:
+
+> **Requirement milegi → tum design karoge → tum code likhoge → bug aaye to tum debug karoge → main reviewer/mentor banunga.**
+
+Claude use karna allowed hai, **lekin Claude ko coder nahi, senior reviewer samajhna hai.**
+
+Is project ke end par agar interview mein koi poochay:
+
+> **"How would you design a multi-tenant SaaS application?"**
+
+to tum sirf definitions nahi bataoge — **tum apne implemented system ke through explain kar sakoge.**
+
