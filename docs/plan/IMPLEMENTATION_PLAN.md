@@ -2,15 +2,15 @@
 
 **Multi-Tenant SaaS Project Management & Billing Platform**
 
-| Field | Value |
-|---|---|
-| Document | Technical Implementation Plan (Master) |
-| Version | 1.0 |
-| Status | Approved for execution |
-| Owner | Engineering (solo build, mentor-reviewed) |
-| Created | 2026-09-06 |
-| Scope source | `idea.txt` |
-| Stack | MERN + Redis (React, Node/Express, MongoDB, Redis, Socket.IO, BullMQ, Docker, AWS) |
+| Field        | Value                                                                              |
+| ------------ | ---------------------------------------------------------------------------------- |
+| Document     | Technical Implementation Plan (Master)                                             |
+| Version      | 1.0                                                                                |
+| Status       | Approved for execution                                                             |
+| Owner        | Engineering (solo build, mentor-reviewed)                                          |
+| Created      | 2026-09-06                                                                         |
+| Scope source | `idea.txt`                                                                         |
+| Stack        | MERN + Redis (React, Node/Express, MongoDB, Redis, Socket.IO, BullMQ, Docker, AWS) |
 
 ---
 
@@ -51,27 +51,27 @@
 
 ### 1.1 Purpose of this document
 
-This is the master engineering plan for **ProManage**. It defines *what* is built, *why* each architectural decision was taken, and *in what order* the work happens. It is written as a specification, not a tutorial: every phase states its deliverables, its Definition of Done, and its acceptance criteria, so progress is measurable rather than felt.
+This is the master engineering plan for **ProManage**. It defines _what_ is built, _why_ each architectural decision was taken, and _in what order_ the work happens. It is written as a specification, not a tutorial: every phase states its deliverables, its Definition of Done, and its acceptance criteria, so progress is measurable rather than felt.
 
 The project has two goals, and both are first-class:
 
 1. **Product goal** — ship a working, deployable, multi-tenant SaaS product.
 2. **Engineering goal** — rebuild production-level full-stack capability: architecture, data modelling, authorization, caching, queues, real-time, testing, security, deployment.
 
-A decision is only "done" when it can be defended. For every arrow in the architecture diagram you should be able to answer: *why does the request go here, why is Redis in this path, why is this data shaped this way, why a queue instead of an inline call?*
+A decision is only "done" when it can be defended. For every arrow in the architecture diagram you should be able to answer: _why does the request go here, why is Redis in this path, why is this data shaped this way, why a queue instead of an inline call?_
 
 ### 1.2 Working agreement (how this project is executed)
 
 This is deliberately **not** an AI-generated codebase.
 
-| Rule | Detail |
-|---|---|
-| Code authorship | All application code is written by hand by the developer. |
-| AI role | Senior reviewer / mentor / architect — never the implementer. |
-| Getting unstuck | Ask for a **hint**, not a solution. |
-| Debugging | Ask "which layer is this bug in, and what are the debugging steps?" — not "fix my code". |
-| Reviews | Every phase ends with a review pass against that phase's Definition of Done. |
-| Design first | No feature is coded before its data model, API contract, and permission rules are written down. |
+| Rule            | Detail                                                                                          |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| Code authorship | All application code is written by hand by the developer.                                       |
+| AI role         | Senior reviewer / mentor / architect — never the implementer.                                   |
+| Getting unstuck | Ask for a **hint**, not a solution.                                                             |
+| Debugging       | Ask "which layer is this bug in, and what are the debugging steps?" — not "fix my code".        |
+| Reviews         | Every phase ends with a review pass against that phase's Definition of Done.                    |
+| Design first    | No feature is coded before its data model, API contract, and permission rules are written down. |
 
 **Rationale:** the value of this project is the reasoning, and reasoning is not transferable by paste.
 
@@ -94,13 +94,13 @@ Positioning: a simplified but production-grade Linear/Jira, including the SaaS s
 
 ### 2.2 Product pillars
 
-| Pillar | What it means |
-|---|---|
-| **Tenant isolation** | A workspace's data is unreachable from another workspace — enforced server-side, on every query. |
-| **Role-scoped access** | Five roles with a real permission matrix, enforced in the API and only *mirrored* in the UI. |
-| **Collaboration** | Kanban, comments, @mentions, attachments, presence, live updates. |
-| **Operational maturity** | Queues, caching, rate limits, audit trail, health checks, structured logs, CI/CD. |
-| **Commercial model** | Plans with hard usage limits enforced by the backend, not the UI. |
+| Pillar                   | What it means                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------ |
+| **Tenant isolation**     | A workspace's data is unreachable from another workspace — enforced server-side, on every query. |
+| **Role-scoped access**   | Five roles with a real permission matrix, enforced in the API and only _mirrored_ in the UI.     |
+| **Collaboration**        | Kanban, comments, @mentions, attachments, presence, live updates.                                |
+| **Operational maturity** | Queues, caching, rate limits, audit trail, health checks, structured logs, CI/CD.                |
+| **Commercial model**     | Plans with hard usage limits enforced by the backend, not the UI.                                |
 
 ### 2.3 In scope (v1.0)
 
@@ -126,17 +126,17 @@ Positioning: a simplified but production-grade Linear/Jira, including the SaaS s
 
 Recorded so that scope creep is a conscious decision, not an accident.
 
-| Excluded | Why | Revisit |
-|---|---|---|
-| Real payment processing (card charges) | Billing *limits* carry the SaaS lesson; card handling adds compliance surface without new learning. Plans change via an admin action. | v1.1 — Stripe Checkout + webhooks |
-| Sprints / epics / story points | Kanban already exercises the hard parts. | v1.2 |
-| Time tracking & timesheets | Additive CRUD, low learning yield. | v1.2 |
-| Gantt / dependency graphs | High UI cost, low backend learning. | Later |
-| Native mobile apps | Responsive web only. | Later |
-| SSO / SAML / social login | Own the JWT lifecycle first — that is the lesson. | v1.1 — Google OAuth |
-| Third-party integrations (Slack, GitHub) | Webhook ingestion is a separate project. | Later |
-| i18n / localization | English only. | Later |
-| Multi-region, sharding, read replicas | Single-region is honest for the expected load. | Later |
+| Excluded                                 | Why                                                                                                                                   | Revisit                           |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| Real payment processing (card charges)   | Billing _limits_ carry the SaaS lesson; card handling adds compliance surface without new learning. Plans change via an admin action. | v1.1 — Stripe Checkout + webhooks |
+| Sprints / epics / story points           | Kanban already exercises the hard parts.                                                                                              | v1.2                              |
+| Time tracking & timesheets               | Additive CRUD, low learning yield.                                                                                                    | v1.2                              |
+| Gantt / dependency graphs                | High UI cost, low backend learning.                                                                                                   | Later                             |
+| Native mobile apps                       | Responsive web only.                                                                                                                  | Later                             |
+| SSO / SAML / social login                | Own the JWT lifecycle first — that is the lesson.                                                                                     | v1.1 — Google OAuth               |
+| Third-party integrations (Slack, GitHub) | Webhook ingestion is a separate project.                                                                                              | Later                             |
+| i18n / localization                      | English only.                                                                                                                         | Later                             |
+| Multi-region, sharding, read replicas    | Single-region is honest for the expected load.                                                                                        | Later                             |
 
 ### 2.5 Success criteria
 
@@ -159,14 +159,14 @@ The project is complete when all of the following are true:
 
 ### 3.1 Personas
 
-| Persona | Goal | Primary surfaces |
-|---|---|---|
-| **Workspace Owner** (founder) | Set up the company workspace, control billing and admins | Onboarding, settings, billing, audit log |
-| **Admin** (ops lead) | Manage members and projects | Members, invitations, projects, activity |
-| **Manager** (team lead) | Plan projects, assign work, track progress | Projects, Kanban, dashboard, reports |
-| **Member** (developer/designer) | Do assigned work, communicate | My Tasks, Kanban, task detail, comments |
-| **Viewer** (stakeholder/client) | Observe progress without touching anything | Read-only board and dashboard |
-| **Platform Admin** (you) | Operate the SaaS itself | Admin panel, queue dashboard, metrics |
+| Persona                         | Goal                                                     | Primary surfaces                         |
+| ------------------------------- | -------------------------------------------------------- | ---------------------------------------- |
+| **Workspace Owner** (founder)   | Set up the company workspace, control billing and admins | Onboarding, settings, billing, audit log |
+| **Admin** (ops lead)            | Manage members and projects                              | Members, invitations, projects, activity |
+| **Manager** (team lead)         | Plan projects, assign work, track progress               | Projects, Kanban, dashboard, reports     |
+| **Member** (developer/designer) | Do assigned work, communicate                            | My Tasks, Kanban, task detail, comments  |
+| **Viewer** (stakeholder/client) | Observe progress without touching anything               | Read-only board and dashboard            |
+| **Platform Admin** (you)        | Operate the SaaS itself                                  | Admin panel, queue dashboard, metrics    |
 
 ### 3.2 Reference scenario
 
@@ -188,15 +188,15 @@ Projects:
 
 These flows must never break; they drive the E2E suite (§21.4).
 
-| ID | Journey | Steps |
-|---|---|---|
-| **CUJ-1** | Sign-up to first task | Register → verify email → login → create workspace → create project → create task |
-| **CUJ-2** | Onboard a teammate | Invite by email + role → invitee receives email → accepts → lands in the workspace with the correct role |
-| **CUJ-3** | Daily task flow | Open board → drag task `TODO → IN_PROGRESS` → comment with @mention → attach file → assignee notified live |
-| **CUJ-4** | Permission boundary | `VIEWER` attempts to create a task → UI hides the control **and** the API returns `403` |
-| **CUJ-5** | Tenant boundary | A user of Workspace A requests a Workspace B task id → `404`, never data |
-| **CUJ-6** | Plan limit | `FREE` workspace creates a 4th project → `403 LIMIT_REACHED` + upgrade prompt |
-| **CUJ-7** | Account recovery | Forgot password → email → reset → all refresh tokens invalidated → login with the new password |
+| ID        | Journey               | Steps                                                                                                      |
+| --------- | --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **CUJ-1** | Sign-up to first task | Register → verify email → login → create workspace → create project → create task                          |
+| **CUJ-2** | Onboard a teammate    | Invite by email + role → invitee receives email → accepts → lands in the workspace with the correct role   |
+| **CUJ-3** | Daily task flow       | Open board → drag task `TODO → IN_PROGRESS` → comment with @mention → attach file → assignee notified live |
+| **CUJ-4** | Permission boundary   | `VIEWER` attempts to create a task → UI hides the control **and** the API returns `403`                    |
+| **CUJ-5** | Tenant boundary       | A user of Workspace A requests a Workspace B task id → `404`, never data                                   |
+| **CUJ-6** | Plan limit            | `FREE` workspace creates a 4th project → `403 LIMIT_REACHED` + upgrade prompt                              |
+| **CUJ-7** | Account recovery      | Forgot password → email → reset → all refresh tokens invalidated → login with the new password             |
 
 ---
 
@@ -206,181 +206,181 @@ Requirements are grouped by module. Priority uses MoSCoW: **M** = Must (v1.0), *
 
 ### 4.1 Authentication — `FR-AUTH`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-AUTH-01 | Register with name, email, password; password strength enforced server-side | M | 5 |
-| FR-AUTH-02 | Email verification via single-use expiring token; unverified users cannot create or join a workspace | M | 5 |
-| FR-AUTH-03 | Login issues a short-lived access token and a long-lived refresh token | M | 5 |
-| FR-AUTH-04 | Refresh rotates the refresh token and detects reuse of a revoked token | M | 5 |
-| FR-AUTH-05 | Logout revokes the current refresh token; "log out everywhere" revokes all sessions | M | 5 |
-| FR-AUTH-06 | Forgot password sends a single-use reset token valid 30 minutes | M | 5 |
-| FR-AUTH-07 | Password reset revokes every session and emails a confirmation | M | 5 |
-| FR-AUTH-08 | Change password (authenticated) requires the current password | M | 5 |
-| FR-AUTH-09 | Session list showing device/UA, IP, last used, created; revoke individually | S | 5 |
-| FR-AUTH-10 | Brute-force protection: per-IP and per-account throttling with progressive lockout | M | 7 |
-| FR-AUTH-11 | Profile: display name, avatar upload, timezone | S | 6 |
+| ID         | Requirement                                                                                          | Pri | Phase |
+| ---------- | ---------------------------------------------------------------------------------------------------- | --- | ----- |
+| FR-AUTH-01 | Register with name, email, password; password strength enforced server-side                          | M   | 5     |
+| FR-AUTH-02 | Email verification via single-use expiring token; unverified users cannot create or join a workspace | M   | 5     |
+| FR-AUTH-03 | Login issues a short-lived access token and a long-lived refresh token                               | M   | 5     |
+| FR-AUTH-04 | Refresh rotates the refresh token and detects reuse of a revoked token                               | M   | 5     |
+| FR-AUTH-05 | Logout revokes the current refresh token; "log out everywhere" revokes all sessions                  | M   | 5     |
+| FR-AUTH-06 | Forgot password sends a single-use reset token valid 30 minutes                                      | M   | 5     |
+| FR-AUTH-07 | Password reset revokes every session and emails a confirmation                                       | M   | 5     |
+| FR-AUTH-08 | Change password (authenticated) requires the current password                                        | M   | 5     |
+| FR-AUTH-09 | Session list showing device/UA, IP, last used, created; revoke individually                          | S   | 5     |
+| FR-AUTH-10 | Brute-force protection: per-IP and per-account throttling with progressive lockout                   | M   | 7     |
+| FR-AUTH-11 | Profile: display name, avatar upload, timezone                                                       | S   | 6     |
 
 ### 4.2 Workspace / Tenant — `FR-WS`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-WS-01 | Create a workspace with name and unique slug; the creator becomes `OWNER` | M | 5 |
-| FR-WS-02 | A user may belong to multiple workspaces and switch between them | M | 5 |
-| FR-WS-03 | Every request is scoped to exactly one active workspace | M | 5 |
-| FR-WS-04 | Workspace settings: name, logo, timezone, default task status | S | 6 |
-| FR-WS-05 | Transfer ownership (`OWNER` only, password confirmation required) | S | 6 |
-| FR-WS-06 | Delete workspace: soft delete plus a 30-day purge job; `OWNER` only | S | 8 |
-| FR-WS-07 | Cross-tenant access attempts are denied and audit-logged | M | 5 |
+| ID       | Requirement                                                               | Pri | Phase |
+| -------- | ------------------------------------------------------------------------- | --- | ----- |
+| FR-WS-01 | Create a workspace with name and unique slug; the creator becomes `OWNER` | M   | 5     |
+| FR-WS-02 | A user may belong to multiple workspaces and switch between them          | M   | 5     |
+| FR-WS-03 | Every request is scoped to exactly one active workspace                   | M   | 5     |
+| FR-WS-04 | Workspace settings: name, logo, timezone, default task status             | S   | 6     |
+| FR-WS-05 | Transfer ownership (`OWNER` only, password confirmation required)         | S   | 6     |
+| FR-WS-06 | Delete workspace: soft delete plus a 30-day purge job; `OWNER` only       | S   | 8     |
+| FR-WS-07 | Cross-tenant access attempts are denied and audit-logged                  | M   | 5     |
 
 ### 4.3 Members & Invitations — `FR-MEM`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-MEM-01 | Invite by email with a role; the token expires in 7 days | M | 6 |
-| FR-MEM-02 | Invitation emails are queued, never sent inline | M | 8 |
-| FR-MEM-03 | Bulk invite (up to 100 addresses per request) fans out to individual jobs | M | 8 |
-| FR-MEM-04 | Accepting an invitation creates the membership; existing users join directly, new users register first | M | 6 |
-| FR-MEM-05 | Resend or revoke a pending invitation | S | 6 |
-| FR-MEM-06 | Change a member's role, never above your own level; `OWNER` is unique per workspace | M | 6 |
-| FR-MEM-07 | Remove a member: their tasks are unassigned, their comments retained | M | 6 |
-| FR-MEM-08 | Member list with search, role filter, pagination | M | 6 |
-| FR-MEM-09 | Seat count enforced against the plan limit | M | 9 |
+| ID        | Requirement                                                                                            | Pri | Phase |
+| --------- | ------------------------------------------------------------------------------------------------------ | --- | ----- |
+| FR-MEM-01 | Invite by email with a role; the token expires in 7 days                                               | M   | 6     |
+| FR-MEM-02 | Invitation emails are queued, never sent inline                                                        | M   | 8     |
+| FR-MEM-03 | Bulk invite (up to 100 addresses per request) fans out to individual jobs                              | M   | 8     |
+| FR-MEM-04 | Accepting an invitation creates the membership; existing users join directly, new users register first | M   | 6     |
+| FR-MEM-05 | Resend or revoke a pending invitation                                                                  | S   | 6     |
+| FR-MEM-06 | Change a member's role, never above your own level; `OWNER` is unique per workspace                    | M   | 6     |
+| FR-MEM-07 | Remove a member: their tasks are unassigned, their comments retained                                   | M   | 6     |
+| FR-MEM-08 | Member list with search, role filter, pagination                                                       | M   | 6     |
+| FR-MEM-09 | Seat count enforced against the plan limit                                                             | M   | 9     |
 
 ### 4.4 Projects — `FR-PRJ`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-PRJ-01 | CRUD: name, key (e.g. `WEB`), description, status, priority, start/due dates | M | 6 |
-| FR-PRJ-02 | Project members are a subset of workspace members | M | 6 |
-| FR-PRJ-03 | Statuses: `PLANNING`, `IN_PROGRESS`, `ON_HOLD`, `COMPLETED`, `ARCHIVED` | M | 6 |
-| FR-PRJ-04 | Archive instead of hard delete; archived projects are read-only | M | 6 |
-| FR-PRJ-05 | Progress = completed tasks ÷ total tasks, computed server-side | M | 6 |
-| FR-PRJ-06 | List with search, status/priority filters, sorting, pagination | M | 6 |
-| FR-PRJ-07 | Project count enforced against the plan limit | M | 9 |
-| FR-PRJ-08 | Per-project custom Kanban columns | C | v1.1 |
+| ID        | Requirement                                                                  | Pri | Phase |
+| --------- | ---------------------------------------------------------------------------- | --- | ----- |
+| FR-PRJ-01 | CRUD: name, key (e.g. `WEB`), description, status, priority, start/due dates | M   | 6     |
+| FR-PRJ-02 | Project members are a subset of workspace members                            | M   | 6     |
+| FR-PRJ-03 | Statuses: `PLANNING`, `IN_PROGRESS`, `ON_HOLD`, `COMPLETED`, `ARCHIVED`      | M   | 6     |
+| FR-PRJ-04 | Archive instead of hard delete; archived projects are read-only              | M   | 6     |
+| FR-PRJ-05 | Progress = completed tasks ÷ total tasks, computed server-side               | M   | 6     |
+| FR-PRJ-06 | List with search, status/priority filters, sorting, pagination               | M   | 6     |
+| FR-PRJ-07 | Project count enforced against the plan limit                                | M   | 9     |
+| FR-PRJ-08 | Per-project custom Kanban columns                                            | C   | v1.1  |
 
 ### 4.5 Tasks — `FR-TSK`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-TSK-01 | CRUD: title, description, status, priority, assignee, reporter, due date, labels | M | 6 |
-| FR-TSK-02 | Human-readable key per project (`WEB-101`), generated atomically | M | 6 |
-| FR-TSK-03 | Statuses `TODO`, `IN_PROGRESS`, `IN_REVIEW`, `DONE`; priorities `LOW`, `MEDIUM`, `HIGH`, `URGENT` | M | 6 |
-| FR-TSK-04 | Kanban board grouped by status with drag-and-drop | M | 6 |
-| FR-TSK-05 | Stable manual ordering within a column (fractional rank, no full re-index) | M | 6 |
-| FR-TSK-06 | Optimistic UI on move, with rollback when the API fails | M | 6 |
-| FR-TSK-07 | Assignment notifies the assignee | M | 8 |
-| FR-TSK-08 | Subtasks / checklist items | S | 6 |
-| FR-TSK-09 | Task history: field-level change log | M | 6 |
-| FR-TSK-10 | "My Tasks" view spanning all projects in the workspace | M | 6 |
-| FR-TSK-11 | Overdue detection plus a daily reminder job | S | 8 |
-| FR-TSK-12 | Task count enforced against the plan limit | M | 9 |
+| ID        | Requirement                                                                                       | Pri | Phase |
+| --------- | ------------------------------------------------------------------------------------------------- | --- | ----- |
+| FR-TSK-01 | CRUD: title, description, status, priority, assignee, reporter, due date, labels                  | M   | 6     |
+| FR-TSK-02 | Human-readable key per project (`WEB-101`), generated atomically                                  | M   | 6     |
+| FR-TSK-03 | Statuses `TODO`, `IN_PROGRESS`, `IN_REVIEW`, `DONE`; priorities `LOW`, `MEDIUM`, `HIGH`, `URGENT` | M   | 6     |
+| FR-TSK-04 | Kanban board grouped by status with drag-and-drop                                                 | M   | 6     |
+| FR-TSK-05 | Stable manual ordering within a column (fractional rank, no full re-index)                        | M   | 6     |
+| FR-TSK-06 | Optimistic UI on move, with rollback when the API fails                                           | M   | 6     |
+| FR-TSK-07 | Assignment notifies the assignee                                                                  | M   | 8     |
+| FR-TSK-08 | Subtasks / checklist items                                                                        | S   | 6     |
+| FR-TSK-09 | Task history: field-level change log                                                              | M   | 6     |
+| FR-TSK-10 | "My Tasks" view spanning all projects in the workspace                                            | M   | 6     |
+| FR-TSK-11 | Overdue detection plus a daily reminder job                                                       | S   | 8     |
+| FR-TSK-12 | Task count enforced against the plan limit                                                        | M   | 9     |
 
 ### 4.6 Comments & Mentions — `FR-CMT`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-CMT-01 | Threaded comments on a task | M | 6 |
-| FR-CMT-02 | Edit (recording `editedAt`) and soft-delete own comments; `ADMIN` may delete any | M | 6 |
-| FR-CMT-03 | `@mention` autocomplete restricted to project members | M | 6 |
-| FR-CMT-04 | Mentions produce notifications; the mention list is parsed and validated server-side | M | 8 |
-| FR-CMT-05 | Comment bodies are sanitized and rendered without raw HTML injection | M | 9 |
-| FR-CMT-06 | Real-time comment delivery to everyone viewing the task | M | 8 |
+| ID        | Requirement                                                                          | Pri | Phase |
+| --------- | ------------------------------------------------------------------------------------ | --- | ----- |
+| FR-CMT-01 | Threaded comments on a task                                                          | M   | 6     |
+| FR-CMT-02 | Edit (recording `editedAt`) and soft-delete own comments; `ADMIN` may delete any     | M   | 6     |
+| FR-CMT-03 | `@mention` autocomplete restricted to project members                                | M   | 6     |
+| FR-CMT-04 | Mentions produce notifications; the mention list is parsed and validated server-side | M   | 8     |
+| FR-CMT-05 | Comment bodies are sanitized and rendered without raw HTML injection                 | M   | 9     |
+| FR-CMT-06 | Real-time comment delivery to everyone viewing the task                              | M   | 8     |
 
 ### 4.7 Attachments — `FR-FILE`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-FILE-01 | Upload attachments to tasks and comments | M | 6 |
-| FR-FILE-02 | Type allowlist and maximum size (10 MB default, plan-dependent) | M | 6 |
-| FR-FILE-03 | Files live in object storage; only metadata is stored in MongoDB | M | 6 |
-| FR-FILE-04 | Deleting the parent entity enqueues deletion of the stored object | M | 8 |
-| FR-FILE-05 | Downloads are authorized — no public, guessable URLs | M | 9 |
-| FR-FILE-06 | Avatar and workspace-logo upload with server-side resize | S | 8 |
-| FR-FILE-07 | Storage usage counted toward the plan quota | S | 9 |
+| ID         | Requirement                                                       | Pri | Phase |
+| ---------- | ----------------------------------------------------------------- | --- | ----- |
+| FR-FILE-01 | Upload attachments to tasks and comments                          | M   | 6     |
+| FR-FILE-02 | Type allowlist and maximum size (10 MB default, plan-dependent)   | M   | 6     |
+| FR-FILE-03 | Files live in object storage; only metadata is stored in MongoDB  | M   | 6     |
+| FR-FILE-04 | Deleting the parent entity enqueues deletion of the stored object | M   | 8     |
+| FR-FILE-05 | Downloads are authorized — no public, guessable URLs              | M   | 9     |
+| FR-FILE-06 | Avatar and workspace-logo upload with server-side resize          | S   | 8     |
+| FR-FILE-07 | Storage usage counted toward the plan quota                       | S   | 9     |
 
 ### 4.8 Notifications — `FR-NTF`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-NTF-01 | In-app notification centre with an unread badge | M | 8 |
-| FR-NTF-02 | Real-time delivery over Socket.IO | M | 8 |
-| FR-NTF-03 | Triggers: assigned, mentioned, comment on your task, status change, invitation, deadline | M | 8 |
-| FR-NTF-04 | Mark one / mark all as read | M | 8 |
-| FR-NTF-05 | Per-user preferences (in-app vs email, by event type) | S | 8 |
-| FR-NTF-06 | Daily email digest of unread notifications via a repeatable job | S | 8 |
-| FR-NTF-07 | Notifications older than 90 days are pruned by a scheduled job | S | 8 |
+| ID        | Requirement                                                                              | Pri | Phase |
+| --------- | ---------------------------------------------------------------------------------------- | --- | ----- |
+| FR-NTF-01 | In-app notification centre with an unread badge                                          | M   | 8     |
+| FR-NTF-02 | Real-time delivery over Socket.IO                                                        | M   | 8     |
+| FR-NTF-03 | Triggers: assigned, mentioned, comment on your task, status change, invitation, deadline | M   | 8     |
+| FR-NTF-04 | Mark one / mark all as read                                                              | M   | 8     |
+| FR-NTF-05 | Per-user preferences (in-app vs email, by event type)                                    | S   | 8     |
+| FR-NTF-06 | Daily email digest of unread notifications via a repeatable job                          | S   | 8     |
+| FR-NTF-07 | Notifications older than 90 days are pruned by a scheduled job                           | S   | 8     |
 
 ### 4.9 Activity & Audit — `FR-AUD`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-AUD-01 | Activity feed per workspace and per project | M | 6 |
-| FR-AUD-02 | Audit records capture actor, action, entity, before/after diff, IP, user agent, timestamp | M | 6 |
-| FR-AUD-03 | Audit entries are append-only; no update or delete API exists | M | 6 |
-| FR-AUD-04 | Security events (failed logins, permission denials, role changes) are audited | M | 9 |
-| FR-AUD-05 | Audit log filterable by actor, action, entity type, date range; `ADMIN`+ only | M | 6 |
-| FR-AUD-06 | CSV export of the audit log via a background job | C | v1.1 |
+| ID        | Requirement                                                                               | Pri | Phase |
+| --------- | ----------------------------------------------------------------------------------------- | --- | ----- |
+| FR-AUD-01 | Activity feed per workspace and per project                                               | M   | 6     |
+| FR-AUD-02 | Audit records capture actor, action, entity, before/after diff, IP, user agent, timestamp | M   | 6     |
+| FR-AUD-03 | Audit entries are append-only; no update or delete API exists                             | M   | 6     |
+| FR-AUD-04 | Security events (failed logins, permission denials, role changes) are audited             | M   | 9     |
+| FR-AUD-05 | Audit log filterable by actor, action, entity type, date range; `ADMIN`+ only             | M   | 6     |
+| FR-AUD-06 | CSV export of the audit log via a background job                                          | C   | v1.1  |
 
 ### 4.10 Search & Filtering — `FR-SRCH`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-SRCH-01 | Global search across projects, tasks, comments, members — always tenant-scoped | M | 7 |
-| FR-SRCH-02 | Advanced task filters: status, priority, assignee, label, due-date range, project | M | 6 |
-| FR-SRCH-03 | Multi-field sorting against a whitelist of sortable fields | M | 6 |
-| FR-SRCH-04 | Cursor pagination for feeds, offset pagination for tables | M | 6 |
-| FR-SRCH-05 | Debounced search returning in under 300 ms p95 on seeded data | M | 7 |
-| FR-SRCH-06 | Saved filter views | C | v1.1 |
+| ID         | Requirement                                                                       | Pri | Phase |
+| ---------- | --------------------------------------------------------------------------------- | --- | ----- |
+| FR-SRCH-01 | Global search across projects, tasks, comments, members — always tenant-scoped    | M   | 7     |
+| FR-SRCH-02 | Advanced task filters: status, priority, assignee, label, due-date range, project | M   | 6     |
+| FR-SRCH-03 | Multi-field sorting against a whitelist of sortable fields                        | M   | 6     |
+| FR-SRCH-04 | Cursor pagination for feeds, offset pagination for tables                         | M   | 6     |
+| FR-SRCH-05 | Debounced search returning in under 300 ms p95 on seeded data                     | M   | 7     |
+| FR-SRCH-06 | Saved filter views                                                                | C   | v1.1  |
 
 ### 4.11 Dashboard & Reporting — `FR-DASH`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-DASH-01 | Workspace KPIs: projects, active tasks, completed, overdue, members | M | 7 |
-| FR-DASH-02 | Tasks-completed-over-time chart (aggregation pipeline) | M | 7 |
-| FR-DASH-03 | Task distribution by status and by priority | M | 7 |
-| FR-DASH-04 | Member workload (open tasks per assignee) | S | 7 |
-| FR-DASH-05 | Dashboard responses cached in Redis and invalidated on write | M | 7 |
-| FR-DASH-06 | Project report: progress, open-task burn-down, overdue list | S | 7 |
+| ID         | Requirement                                                         | Pri | Phase |
+| ---------- | ------------------------------------------------------------------- | --- | ----- |
+| FR-DASH-01 | Workspace KPIs: projects, active tasks, completed, overdue, members | M   | 7     |
+| FR-DASH-02 | Tasks-completed-over-time chart (aggregation pipeline)              | M   | 7     |
+| FR-DASH-03 | Task distribution by status and by priority                         | M   | 7     |
+| FR-DASH-04 | Member workload (open tasks per assignee)                           | S   | 7     |
+| FR-DASH-05 | Dashboard responses cached in Redis and invalidated on write        | M   | 7     |
+| FR-DASH-06 | Project report: progress, open-task burn-down, overdue list         | S   | 7     |
 
 ### 4.12 Subscription & Limits — `FR-SUB`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-SUB-01 | Three plans with defined quotas (§17.1) | M | 9 |
-| FR-SUB-02 | Every workspace has exactly one active subscription; new workspaces default to `FREE` | M | 9 |
-| FR-SUB-03 | Limits enforced in a service layer before any write | M | 9 |
-| FR-SUB-04 | Exceeding a quota returns `403 LIMIT_REACHED` with current and limit values | M | 9 |
-| FR-SUB-05 | Usage counters maintained incrementally, not counted per request | M | 9 |
-| FR-SUB-06 | Usage page showing consumption against each quota | M | 9 |
-| FR-SUB-07 | Plan change applies immediately; a downgrade below current usage is blocked with a clear message | M | 9 |
-| FR-SUB-08 | Nightly reconciliation job recomputes counters and corrects drift | S | 9 |
-| FR-SUB-09 | Stripe Checkout and webhooks | C | v1.1 |
+| ID        | Requirement                                                                                      | Pri | Phase |
+| --------- | ------------------------------------------------------------------------------------------------ | --- | ----- |
+| FR-SUB-01 | Three plans with defined quotas (§17.1)                                                          | M   | 9     |
+| FR-SUB-02 | Every workspace has exactly one active subscription; new workspaces default to `FREE`            | M   | 9     |
+| FR-SUB-03 | Limits enforced in a service layer before any write                                              | M   | 9     |
+| FR-SUB-04 | Exceeding a quota returns `403 LIMIT_REACHED` with current and limit values                      | M   | 9     |
+| FR-SUB-05 | Usage counters maintained incrementally, not counted per request                                 | M   | 9     |
+| FR-SUB-06 | Usage page showing consumption against each quota                                                | M   | 9     |
+| FR-SUB-07 | Plan change applies immediately; a downgrade below current usage is blocked with a clear message | M   | 9     |
+| FR-SUB-08 | Nightly reconciliation job recomputes counters and corrects drift                                | S   | 9     |
+| FR-SUB-09 | Stripe Checkout and webhooks                                                                     | C   | v1.1  |
 
 ### 4.13 Platform Admin — `FR-ADM`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-ADM-01 | Platform-admin area, separate from workspace roles | M | 9 |
-| FR-ADM-02 | List and search workspaces with plan, usage, member count | M | 9 |
-| FR-ADM-03 | Suspend and reactivate a workspace | S | 9 |
-| FR-ADM-04 | Change a workspace's plan | M | 9 |
-| FR-ADM-05 | Queue health: waiting/active/failed counts, retry a failed job | M | 9 |
-| FR-ADM-06 | Platform metrics: signups, active workspaces, task volume | S | 9 |
+| ID        | Requirement                                                    | Pri | Phase |
+| --------- | -------------------------------------------------------------- | --- | ----- |
+| FR-ADM-01 | Platform-admin area, separate from workspace roles             | M   | 9     |
+| FR-ADM-02 | List and search workspaces with plan, usage, member count      | M   | 9     |
+| FR-ADM-03 | Suspend and reactivate a workspace                             | S   | 9     |
+| FR-ADM-04 | Change a workspace's plan                                      | M   | 9     |
+| FR-ADM-05 | Queue health: waiting/active/failed counts, retry a failed job | M   | 9     |
+| FR-ADM-06 | Platform metrics: signups, active workspaces, task volume      | S   | 9     |
 
 ### 4.14 Platform Requirements — `FR-PLT`
 
-| ID | Requirement | Pri | Phase |
-|---|---|---|---|
-| FR-PLT-01 | All endpoints under `/api/v1`; version carried in the path | M | 3 |
-| FR-PLT-02 | Uniform success and error envelope (§9.2) | M | 3 |
-| FR-PLT-03 | Every request carries a correlation id, echoed in the response header and in logs | M | 3 |
-| FR-PLT-04 | Validation of every input at the edge — body, params, query | M | 3 |
-| FR-PLT-05 | Rate limiting: global, per user, and stricter on sensitive endpoints | M | 7 |
-| FR-PLT-06 | OpenAPI spec served at `/api/docs`, kept in sync with the routes | M | 3 |
-| FR-PLT-07 | `/healthz` (liveness) and `/readyz` (Mongo and Redis reachable) | M | 10 |
-| FR-PLT-08 | Graceful shutdown: stop accepting, drain in-flight work, close pools | M | 10 |
+| ID        | Requirement                                                                       | Pri | Phase |
+| --------- | --------------------------------------------------------------------------------- | --- | ----- |
+| FR-PLT-01 | All endpoints under `/api/v1`; version carried in the path                        | M   | 3     |
+| FR-PLT-02 | Uniform success and error envelope (§9.2)                                         | M   | 3     |
+| FR-PLT-03 | Every request carries a correlation id, echoed in the response header and in logs | M   | 3     |
+| FR-PLT-04 | Validation of every input at the edge — body, params, query                       | M   | 3     |
+| FR-PLT-05 | Rate limiting: global, per user, and stricter on sensitive endpoints              | M   | 7     |
+| FR-PLT-06 | OpenAPI spec served at `/api/docs`, kept in sync with the routes                  | M   | 3     |
+| FR-PLT-07 | `/healthz` (liveness) and `/readyz` (Mongo and Redis reachable)                   | M   | 10    |
+| FR-PLT-08 | Graceful shutdown: stop accepting, drain in-flight work, close pools              | M   | 10    |
 
 ---
 
@@ -388,71 +388,71 @@ Requirements are grouped by module. Priority uses MoSCoW: **M** = Must (v1.0), *
 
 ### 5.1 Performance
 
-| ID | Requirement | Target | Verified by |
-|---|---|---|---|
-| NFR-01 | API read latency (p95), warm cache | ≤ 200 ms | k6 load script, Phase 9 |
-| NFR-02 | API write latency (p95) | ≤ 400 ms | k6 load script |
-| NFR-03 | Dashboard aggregate (cached) | ≤ 100 ms | Manual + load test |
-| NFR-04 | Board load, 500 tasks | ≤ 1.5 s to interactive | Lighthouse |
-| NFR-05 | Bulk invite of 100 members (API response) | ≤ 500 ms | Integration test |
-| NFR-06 | Socket event fan-out to a room | ≤ 500 ms end to end | Manual, two browsers |
-| NFR-07 | No unindexed query on a hot path | 0 `COLLSCAN` | `explain()` review, Phase 9 |
+| ID     | Requirement                               | Target                 | Verified by                 |
+| ------ | ----------------------------------------- | ---------------------- | --------------------------- |
+| NFR-01 | API read latency (p95), warm cache        | ≤ 200 ms               | k6 load script, Phase 9     |
+| NFR-02 | API write latency (p95)                   | ≤ 400 ms               | k6 load script              |
+| NFR-03 | Dashboard aggregate (cached)              | ≤ 100 ms               | Manual + load test          |
+| NFR-04 | Board load, 500 tasks                     | ≤ 1.5 s to interactive | Lighthouse                  |
+| NFR-05 | Bulk invite of 100 members (API response) | ≤ 500 ms               | Integration test            |
+| NFR-06 | Socket event fan-out to a room            | ≤ 500 ms end to end    | Manual, two browsers        |
+| NFR-07 | No unindexed query on a hot path          | 0 `COLLSCAN`           | `explain()` review, Phase 9 |
 
 **Reference dataset for testing:** 3 workspaces × 20 members × 15 projects × 3,000 tasks × 10,000 comments, produced by a seed script.
 
 ### 5.2 Scalability
 
-| ID | Requirement |
-|---|---|
+| ID     | Requirement                                                                                |
+| ------ | ------------------------------------------------------------------------------------------ |
 | NFR-08 | The API is stateless — no in-process session or cache that breaks under multiple replicas. |
-| NFR-09 | Socket.IO uses the Redis adapter so real-time works across replicas. |
-| NFR-10 | Workers scale independently of the API. |
-| NFR-11 | Every list endpoint is paginated; no unbounded result set is ever returned. |
-| NFR-12 | Design target: 100 workspaces, 2,000 users, 100k tasks on a single modest instance. |
+| NFR-09 | Socket.IO uses the Redis adapter so real-time works across replicas.                       |
+| NFR-10 | Workers scale independently of the API.                                                    |
+| NFR-11 | Every list endpoint is paginated; no unbounded result set is ever returned.                |
+| NFR-12 | Design target: 100 workspaces, 2,000 users, 100k tasks on a single modest instance.        |
 
 ### 5.3 Reliability & availability
 
-| ID | Requirement |
-|---|---|
-| NFR-13 | Target availability 99.5% (single region, honest for the deployment). |
+| ID     | Requirement                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+| NFR-13 | Target availability 99.5% (single region, honest for the deployment).             |
 | NFR-14 | Redis being down degrades performance but does not break reads (cache-miss path). |
-| NFR-15 | Email failures retry with exponential backoff, then land in a dead-letter set. |
-| NFR-16 | Jobs are idempotent — a retry must not double-send or double-write. |
-| NFR-17 | Nightly automated MongoDB backup; restore procedure tested at least once. |
-| NFR-18 | RPO ≤ 24 h, RTO ≤ 4 h. |
+| NFR-15 | Email failures retry with exponential backoff, then land in a dead-letter set.    |
+| NFR-16 | Jobs are idempotent — a retry must not double-send or double-write.               |
+| NFR-17 | Nightly automated MongoDB backup; restore procedure tested at least once.         |
+| NFR-18 | RPO ≤ 24 h, RTO ≤ 4 h.                                                            |
 
 ### 5.4 Security
 
-| ID | Requirement |
-|---|---|
-| NFR-19 | Every request is authenticated and authorized; there is no implicitly trusted path. |
+| ID     | Requirement                                                                                                |
+| ------ | ---------------------------------------------------------------------------------------------------------- |
+| NFR-19 | Every request is authenticated and authorized; there is no implicitly trusted path.                        |
 | NFR-20 | Every tenant-scoped query filters by `workspaceId` server-side — never from a client-supplied value alone. |
-| NFR-21 | Passwords hashed with bcrypt, cost ≥ 12. |
-| NFR-22 | Refresh tokens are stored hashed and rotated on use. |
-| NFR-23 | All traffic over HTTPS; HSTS enabled. |
-| NFR-24 | Secrets come from the environment; none is committed to the repository. |
-| NFR-25 | OWASP Top 10 reviewed and each item explicitly addressed (§22). |
-| NFR-26 | Dependency audit runs in CI; the build fails on a high-severity advisory. |
+| NFR-21 | Passwords hashed with bcrypt, cost ≥ 12.                                                                   |
+| NFR-22 | Refresh tokens are stored hashed and rotated on use.                                                       |
+| NFR-23 | All traffic over HTTPS; HSTS enabled.                                                                      |
+| NFR-24 | Secrets come from the environment; none is committed to the repository.                                    |
+| NFR-25 | OWASP Top 10 reviewed and each item explicitly addressed (§22).                                            |
+| NFR-26 | Dependency audit runs in CI; the build fails on a high-severity advisory.                                  |
 
 ### 5.5 Maintainability
 
-| ID | Requirement |
-|---|---|
+| ID     | Requirement                                                                                                        |
+| ------ | ------------------------------------------------------------------------------------------------------------------ |
 | NFR-27 | Layered backend: route → middleware → controller → service → repository/model. Controllers hold no business logic. |
-| NFR-28 | ESLint + Prettier enforced in CI. |
-| NFR-29 | Coverage thresholds enforced in CI (§21.6). |
-| NFR-30 | Every module has a short README explaining its responsibility. |
-| NFR-31 | Architecture Decision Records for every significant choice (§26.5). |
+| NFR-28 | ESLint + Prettier enforced in CI.                                                                                  |
+| NFR-29 | Coverage thresholds enforced in CI (§21.6).                                                                        |
+| NFR-30 | Every module has a short README explaining its responsibility.                                                     |
+| NFR-31 | Architecture Decision Records for every significant choice (§26.5).                                                |
 
 ### 5.6 Usability & accessibility
 
-| ID | Requirement |
-|---|---|
-| NFR-32 | Responsive from 360 px upward. |
-| NFR-33 | Keyboard-accessible primary flows; visible focus states. |
-| NFR-34 | Colour contrast meets WCAG AA. |
+| ID     | Requirement                                                                 |
+| ------ | --------------------------------------------------------------------------- |
+| NFR-32 | Responsive from 360 px upward.                                              |
+| NFR-33 | Keyboard-accessible primary flows; visible focus states.                    |
+| NFR-34 | Colour contrast meets WCAG AA.                                              |
 | NFR-35 | Every async surface has explicit loading, empty, error, and success states. |
-| NFR-36 | Destructive actions require confirmation and state the consequence. |
+| NFR-36 | Destructive actions require confirmation and state the consequence.         |
 
 ---
 
@@ -502,19 +502,19 @@ Requirements are grouped by module. Priority uses MoSCoW: **M** = Must (v1.0), *
 
 ### 6.2 Why each component exists
 
-| Component | Responsibility | Why not do it elsewhere |
-|---|---|---|
-| **Nginx** | TLS termination, static serving, reverse proxy, compression, connection limits | Node should not terminate TLS or serve static assets in production — Nginx is faster and lets the app restart without dropping the edge. |
-| **React SPA** | Rendering, client routing, optimistic UI, local view state | Server rendering adds complexity the product does not need; the app is behind a login and not SEO-sensitive. |
-| **Express API** | HTTP contract, validation, authN/authZ, business logic, persistence orchestration | Single source of truth for rules. The client is never trusted. |
-| **Socket.IO** | Push of task/comment/notification/presence events | Polling would be wasteful and laggy; these events are server-originated. |
-| **MongoDB** | System of record | Flexible document shape fits nested task/comment data; the team knows it. |
-| **Redis — cache** | Hot read acceleration (dashboard, permissions, member lists) | Repeating expensive aggregations on every request is the wrong default. |
-| **Redis — rate limit** | Shared counters across API replicas | In-process counters break the moment there are two replicas. |
-| **Redis — pub/sub** | Socket.IO adapter across replicas | Without it, a socket connected to replica A never sees an event emitted on replica B. |
-| **Redis — queue** | BullMQ job backing store | Already present, and gives durability, retries, delays, and priorities. |
-| **Worker** | Slow, retryable, failure-tolerant work | An HTTP request must not wait on 100 emails or an image resize. |
-| **Object storage** | Binary blobs | Databases are bad, expensive file servers. Mongo stores only metadata. |
+| Component              | Responsibility                                                                    | Why not do it elsewhere                                                                                                                  |
+| ---------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Nginx**              | TLS termination, static serving, reverse proxy, compression, connection limits    | Node should not terminate TLS or serve static assets in production — Nginx is faster and lets the app restart without dropping the edge. |
+| **React SPA**          | Rendering, client routing, optimistic UI, local view state                        | Server rendering adds complexity the product does not need; the app is behind a login and not SEO-sensitive.                             |
+| **Express API**        | HTTP contract, validation, authN/authZ, business logic, persistence orchestration | Single source of truth for rules. The client is never trusted.                                                                           |
+| **Socket.IO**          | Push of task/comment/notification/presence events                                 | Polling would be wasteful and laggy; these events are server-originated.                                                                 |
+| **MongoDB**            | System of record                                                                  | Flexible document shape fits nested task/comment data; the team knows it.                                                                |
+| **Redis — cache**      | Hot read acceleration (dashboard, permissions, member lists)                      | Repeating expensive aggregations on every request is the wrong default.                                                                  |
+| **Redis — rate limit** | Shared counters across API replicas                                               | In-process counters break the moment there are two replicas.                                                                             |
+| **Redis — pub/sub**    | Socket.IO adapter across replicas                                                 | Without it, a socket connected to replica A never sees an event emitted on replica B.                                                    |
+| **Redis — queue**      | BullMQ job backing store                                                          | Already present, and gives durability, retries, delays, and priorities.                                                                  |
+| **Worker**             | Slow, retryable, failure-tolerant work                                            | An HTTP request must not wait on 100 emails or an image resize.                                                                          |
+| **Object storage**     | Binary blobs                                                                      | Databases are bad, expensive file servers. Mongo stores only metadata.                                                                   |
 
 ### 6.3 Request lifecycle (canonical path)
 
@@ -549,22 +549,22 @@ HTTP request
 
 ### 6.4 Runtime processes
 
-| Process | Command | Scales on |
-|---|---|---|
-| `api` | `node src/server.js` | Request volume |
-| `worker` | `node src/worker.js` | Job backlog |
+| Process     | Command                                       | Scales on                    |
+| ----------- | --------------------------------------------- | ---------------------------- |
+| `api`       | `node src/server.js`                          | Request volume               |
+| `worker`    | `node src/worker.js`                          | Job backlog                  |
 | `scheduler` | Repeatable BullMQ jobs registered at API boot | Single instance (use a lock) |
 
 The API and the worker share the `src/` codebase but have different entry points. The worker never listens on HTTP.
 
 ### 6.5 Environments
 
-| Environment | Purpose | Data | Deploy |
-|---|---|---|---|
-| `local` | Development | Seeded, disposable | `docker compose up` |
-| `test` | Automated tests | Ephemeral (in-memory Mongo / test containers) | CI |
-| `staging` | Pre-production verification | Anonymised seed | Auto on merge to `main` |
-| `production` | Live | Real | Manual promotion / tag |
+| Environment  | Purpose                     | Data                                          | Deploy                  |
+| ------------ | --------------------------- | --------------------------------------------- | ----------------------- |
+| `local`      | Development                 | Seeded, disposable                            | `docker compose up`     |
+| `test`       | Automated tests             | Ephemeral (in-memory Mongo / test containers) | CI                      |
+| `staging`    | Pre-production verification | Anonymised seed                               | Auto on merge to `main` |
+| `production` | Live                        | Real                                          | Manual promotion / tag  |
 
 ---
 
@@ -576,13 +576,13 @@ Multi-tenancy is the spine of this product. Get it wrong and every other feature
 
 **Shared database, shared collections, row-level isolation by `workspaceId`.**
 
-| Option | Isolation | Cost | Ops burden | Verdict |
-|---|---|---|---|---|
-| Database per tenant | Strongest | High | High (N migrations, N backups) | Rejected — wrong scale |
-| Collection per tenant | Strong | Medium | High (unbounded collections) | Rejected |
-| **Shared, `workspaceId` discriminator** | Application-enforced | Low | Low | **Chosen** |
+| Option                                  | Isolation            | Cost   | Ops burden                     | Verdict                |
+| --------------------------------------- | -------------------- | ------ | ------------------------------ | ---------------------- |
+| Database per tenant                     | Strongest            | High   | High (N migrations, N backups) | Rejected — wrong scale |
+| Collection per tenant                   | Strong               | Medium | High (unbounded collections)   | Rejected               |
+| **Shared, `workspaceId` discriminator** | Application-enforced | Low    | Low                            | **Chosen**             |
 
-**Consequence accepted:** isolation is now an *application* guarantee, not an infrastructure one. That raises the bar on discipline — hence the rules below.
+**Consequence accepted:** isolation is now an _application_ guarantee, not an infrastructure one. That raises the bar on discipline — hence the rules below.
 
 ### 7.2 Isolation rules (non-negotiable)
 
@@ -649,190 +649,190 @@ User ─────────< Membership >───── Workspace
 
 ### 8.2 Modelling principles
 
-| Principle | Application here |
-|---|---|
-| **Embed what is read together and bounded** | Task labels, checklist items, denormalised `assigneeName` for board rendering. |
-| **Reference what is unbounded or shared** | Comments, attachments, memberships — these grow without limit. |
-| **Never embed an unbounded array** | Comments on a task can reach thousands; embedding invites the 16 MB document limit and rewrite churn. |
-| **Denormalise deliberately, and record the update path** | If `assigneeName` is stored on a task, a rename must fan out — that job is specified, not assumed. |
-| **Index for the query, not for the field** | Indexes are derived from the actual access patterns in §8.11. |
-| **Tenant key first** | Every compound index starts with `workspaceId`. |
+| Principle                                                | Application here                                                                                      |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Embed what is read together and bounded**              | Task labels, checklist items, denormalised `assigneeName` for board rendering.                        |
+| **Reference what is unbounded or shared**                | Comments, attachments, memberships — these grow without limit.                                        |
+| **Never embed an unbounded array**                       | Comments on a task can reach thousands; embedding invites the 16 MB document limit and rewrite churn. |
+| **Denormalise deliberately, and record the update path** | If `assigneeName` is stored on a task, a rename must fan out — that job is specified, not assumed.    |
+| **Index for the query, not for the field**               | Indexes are derived from the actual access patterns in §8.11.                                         |
+| **Tenant key first**                                     | Every compound index starts with `workspaceId`.                                                       |
 
 ### 8.3 `users`
 
-| Field | Type | Notes |
-|---|---|---|
-| `_id` | ObjectId | |
-| `name` | String | 2–60 chars |
-| `email` | String | lowercased, **unique**, immutable after verification |
-| `passwordHash` | String | bcrypt, never selected by default |
-| `avatarUrl` | String? | object-storage URL |
-| `isEmailVerified` | Boolean | default `false` |
-| `emailVerifiedAt` | Date? | |
-| `timezone` | String | IANA, default `UTC` |
-| `isPlatformAdmin` | Boolean | default `false` — platform role, unrelated to workspace roles |
-| `status` | Enum | `ACTIVE`, `SUSPENDED`, `DELETED` |
-| `passwordChangedAt` | Date | used to invalidate tokens issued before it |
-| `lastLoginAt` | Date? | |
-| `createdAt` / `updatedAt` | Date | |
+| Field                     | Type     | Notes                                                         |
+| ------------------------- | -------- | ------------------------------------------------------------- |
+| `_id`                     | ObjectId |                                                               |
+| `name`                    | String   | 2–60 chars                                                    |
+| `email`                   | String   | lowercased, **unique**, immutable after verification          |
+| `passwordHash`            | String   | bcrypt, never selected by default                             |
+| `avatarUrl`               | String?  | object-storage URL                                            |
+| `isEmailVerified`         | Boolean  | default `false`                                               |
+| `emailVerifiedAt`         | Date?    |                                                               |
+| `timezone`                | String   | IANA, default `UTC`                                           |
+| `isPlatformAdmin`         | Boolean  | default `false` — platform role, unrelated to workspace roles |
+| `status`                  | Enum     | `ACTIVE`, `SUSPENDED`, `DELETED`                              |
+| `passwordChangedAt`       | Date     | used to invalidate tokens issued before it                    |
+| `lastLoginAt`             | Date?    |                                                               |
+| `createdAt` / `updatedAt` | Date     |                                                               |
 
-> **Not stored here:** roles. Role is a property of the *membership*, not the user — a user can be `OWNER` in one workspace and `VIEWER` in another. Putting a role on the user is the single most common multi-tenant modelling mistake.
+> **Not stored here:** roles. Role is a property of the _membership_, not the user — a user can be `OWNER` in one workspace and `VIEWER` in another. Putting a role on the user is the single most common multi-tenant modelling mistake.
 
 ### 8.4 `workspaces`
 
-| Field | Type | Notes |
-|---|---|---|
-| `_id` | ObjectId | tenant key |
-| `name` | String | |
-| `slug` | String | **unique**, URL-safe |
-| `ownerId` | ObjectId → User | exactly one |
-| `logoUrl` | String? | |
-| `settings` | Object | `{ timezone, defaultTaskStatus, allowMemberInvites }` |
-| `status` | Enum | `ACTIVE`, `SUSPENDED`, `PENDING_DELETION` |
-| `deletionScheduledAt` | Date? | drives the purge job |
-| `counters` | Object | `{ projects, tasks, members, storageBytes }` — incremental usage (§17.3) |
-| `createdAt` / `updatedAt` | Date | |
+| Field                     | Type            | Notes                                                                    |
+| ------------------------- | --------------- | ------------------------------------------------------------------------ |
+| `_id`                     | ObjectId        | tenant key                                                               |
+| `name`                    | String          |                                                                          |
+| `slug`                    | String          | **unique**, URL-safe                                                     |
+| `ownerId`                 | ObjectId → User | exactly one                                                              |
+| `logoUrl`                 | String?         |                                                                          |
+| `settings`                | Object          | `{ timezone, defaultTaskStatus, allowMemberInvites }`                    |
+| `status`                  | Enum            | `ACTIVE`, `SUSPENDED`, `PENDING_DELETION`                                |
+| `deletionScheduledAt`     | Date?           | drives the purge job                                                     |
+| `counters`                | Object          | `{ projects, tasks, members, storageBytes }` — incremental usage (§17.3) |
+| `createdAt` / `updatedAt` | Date            |                                                                          |
 
 ### 8.5 `memberships`
 
 The join between users and workspaces, and the home of the role.
 
-| Field | Type | Notes |
-|---|---|---|
-| `userId` | ObjectId → User | |
-| `workspaceId` | ObjectId → Workspace | |
-| `role` | Enum | `OWNER`, `ADMIN`, `MANAGER`, `MEMBER`, `VIEWER` |
-| `status` | Enum | `ACTIVE`, `INVITED`, `REMOVED` |
-| `invitedBy` | ObjectId? → User | |
-| `joinedAt` | Date | |
+| Field         | Type                 | Notes                                           |
+| ------------- | -------------------- | ----------------------------------------------- |
+| `userId`      | ObjectId → User      |                                                 |
+| `workspaceId` | ObjectId → Workspace |                                                 |
+| `role`        | Enum                 | `OWNER`, `ADMIN`, `MANAGER`, `MEMBER`, `VIEWER` |
+| `status`      | Enum                 | `ACTIVE`, `INVITED`, `REMOVED`                  |
+| `invitedBy`   | ObjectId? → User     |                                                 |
+| `joinedAt`    | Date                 |                                                 |
 
 **Constraint:** unique on `{ userId, workspaceId }`. Exactly one `OWNER` per workspace, enforced in the service layer on transfer.
 
 ### 8.6 `projects`
 
-| Field | Type | Notes |
-|---|---|---|
-| `workspaceId` | ObjectId | required, immutable |
-| `name` | String | |
-| `key` | String | e.g. `WEB` — unique per workspace, used in task keys |
-| `description` | String? | |
-| `status` | Enum | `PLANNING`, `IN_PROGRESS`, `ON_HOLD`, `COMPLETED`, `ARCHIVED` |
-| `priority` | Enum | `LOW`, `MEDIUM`, `HIGH`, `URGENT` |
-| `startDate` / `dueDate` | Date? | |
-| `leadId` | ObjectId? → User | |
-| `memberIds` | [ObjectId] | bounded (≤ plan seat limit) → embedding an array of ids is safe and makes membership checks a single read |
-| `taskCounter` | Number | last issued task number, incremented atomically for `WEB-101` |
-| `stats` | Object | `{ totalTasks, completedTasks }` — maintained incrementally for progress without a count query |
-| `isArchived` | Boolean | |
-| `createdBy` | ObjectId → User | |
+| Field                   | Type             | Notes                                                                                                     |
+| ----------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| `workspaceId`           | ObjectId         | required, immutable                                                                                       |
+| `name`                  | String           |                                                                                                           |
+| `key`                   | String           | e.g. `WEB` — unique per workspace, used in task keys                                                      |
+| `description`           | String?          |                                                                                                           |
+| `status`                | Enum             | `PLANNING`, `IN_PROGRESS`, `ON_HOLD`, `COMPLETED`, `ARCHIVED`                                             |
+| `priority`              | Enum             | `LOW`, `MEDIUM`, `HIGH`, `URGENT`                                                                         |
+| `startDate` / `dueDate` | Date?            |                                                                                                           |
+| `leadId`                | ObjectId? → User |                                                                                                           |
+| `memberIds`             | [ObjectId]       | bounded (≤ plan seat limit) → embedding an array of ids is safe and makes membership checks a single read |
+| `taskCounter`           | Number           | last issued task number, incremented atomically for `WEB-101`                                             |
+| `stats`                 | Object           | `{ totalTasks, completedTasks }` — maintained incrementally for progress without a count query            |
+| `isArchived`            | Boolean          |                                                                                                           |
+| `createdBy`             | ObjectId → User  |                                                                                                           |
 
 ### 8.7 `tasks`
 
 The hottest collection; model it for the board query.
 
-| Field | Type | Notes |
-|---|---|---|
-| `workspaceId` | ObjectId | required, immutable |
-| `projectId` | ObjectId | required, immutable |
-| `key` | String | `WEB-101`, unique per project |
-| `title` | String | |
-| `description` | String? | |
-| `status` | Enum | `TODO`, `IN_PROGRESS`, `IN_REVIEW`, `DONE` |
-| `priority` | Enum | `LOW`, `MEDIUM`, `HIGH`, `URGENT` |
-| `assigneeId` | ObjectId? → User | |
-| `assignee` | Object? | `{ name, avatarUrl }` — denormalised for board rendering without a `$lookup` |
-| `reporterId` | ObjectId → User | |
-| `dueDate` | Date? | |
-| `labels` | [String] | bounded, embedded |
-| `checklist` | [{ text, done }] | bounded, embedded — always read with the task |
-| `rank` | String | fractional/lexicographic rank for ordering within a column |
-| `attachmentCount` | Number | avoids a count query per card |
-| `commentCount` | Number | same |
-| `completedAt` | Date? | powers completion charts |
-| `isDeleted` | Boolean | soft delete |
-| `createdBy` | ObjectId → User | |
+| Field             | Type             | Notes                                                                        |
+| ----------------- | ---------------- | ---------------------------------------------------------------------------- |
+| `workspaceId`     | ObjectId         | required, immutable                                                          |
+| `projectId`       | ObjectId         | required, immutable                                                          |
+| `key`             | String           | `WEB-101`, unique per project                                                |
+| `title`           | String           |                                                                              |
+| `description`     | String?          |                                                                              |
+| `status`          | Enum             | `TODO`, `IN_PROGRESS`, `IN_REVIEW`, `DONE`                                   |
+| `priority`        | Enum             | `LOW`, `MEDIUM`, `HIGH`, `URGENT`                                            |
+| `assigneeId`      | ObjectId? → User |                                                                              |
+| `assignee`        | Object?          | `{ name, avatarUrl }` — denormalised for board rendering without a `$lookup` |
+| `reporterId`      | ObjectId → User  |                                                                              |
+| `dueDate`         | Date?            |                                                                              |
+| `labels`          | [String]         | bounded, embedded                                                            |
+| `checklist`       | [{ text, done }] | bounded, embedded — always read with the task                                |
+| `rank`            | String           | fractional/lexicographic rank for ordering within a column                   |
+| `attachmentCount` | Number           | avoids a count query per card                                                |
+| `commentCount`    | Number           | same                                                                         |
+| `completedAt`     | Date?            | powers completion charts                                                     |
+| `isDeleted`       | Boolean          | soft delete                                                                  |
+| `createdBy`       | ObjectId → User  |                                                                              |
 
 **Ordering decision.** A numeric `position` per column forces rewriting every card below the insertion point. A **lexicographic rank string** (`LexoRank`-style) means a move writes exactly one document. Rebalancing runs as a rare background job when ranks converge.
 
 ### 8.8 `comments`
 
-| Field | Type | Notes |
-|---|---|---|
-| `workspaceId`, `projectId`, `taskId` | ObjectId | denormalised ancestry — allows a workspace-wide comment search without joins |
-| `authorId` | ObjectId → User | |
-| `body` | String | sanitized on write |
-| `mentions` | [ObjectId] | parsed and validated server-side against project members |
-| `parentId` | ObjectId? | one level of threading |
-| `editedAt` | Date? | |
-| `isDeleted` | Boolean | soft delete keeps thread continuity |
+| Field                                | Type            | Notes                                                                        |
+| ------------------------------------ | --------------- | ---------------------------------------------------------------------------- |
+| `workspaceId`, `projectId`, `taskId` | ObjectId        | denormalised ancestry — allows a workspace-wide comment search without joins |
+| `authorId`                           | ObjectId → User |                                                                              |
+| `body`                               | String          | sanitized on write                                                           |
+| `mentions`                           | [ObjectId]      | parsed and validated server-side against project members                     |
+| `parentId`                           | ObjectId?       | one level of threading                                                       |
+| `editedAt`                           | Date?           |                                                                              |
+| `isDeleted`                          | Boolean         | soft delete keeps thread continuity                                          |
 
 ### 8.9 Supporting collections
 
-| Collection | Purpose | Key fields |
-|---|---|---|
-| `attachments` | File metadata | `workspaceId`, `taskId?`, `commentId?`, `uploaderId`, `filename`, `mimeType`, `sizeBytes`, `storageKey`, `url` |
-| `invitations` | Pending invites | `workspaceId`, `email`, `role`, `tokenHash`, `expiresAt`, `status`, `invitedBy` |
-| `notifications` | In-app inbox | `workspaceId`, `userId`, `type`, `title`, `body`, `entity {type,id}`, `isRead`, `createdAt` |
-| `activitylogs` | Human-readable feed | `workspaceId`, `projectId?`, `actorId`, `action`, `entity`, `metadata`, `createdAt` |
-| `auditlogs` | Append-only compliance record | `workspaceId?`, `actorId?`, `action`, `entity`, `before`, `after`, `ip`, `userAgent`, `requestId`, `createdAt` |
-| `subscriptions` | Plan state | `workspaceId` (unique), `plan`, `status`, `limits`, `currentPeriodStart/End`, `changedBy` |
-| `refreshtokens` | Session store | `userId`, `tokenHash`, `family`, `userAgent`, `ip`, `expiresAt`, `revokedAt?`, `replacedBy?` |
-| `taskhistory` | Field-level change log | `workspaceId`, `taskId`, `actorId`, `field`, `from`, `to`, `createdAt` |
+| Collection      | Purpose                       | Key fields                                                                                                     |
+| --------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `attachments`   | File metadata                 | `workspaceId`, `taskId?`, `commentId?`, `uploaderId`, `filename`, `mimeType`, `sizeBytes`, `storageKey`, `url` |
+| `invitations`   | Pending invites               | `workspaceId`, `email`, `role`, `tokenHash`, `expiresAt`, `status`, `invitedBy`                                |
+| `notifications` | In-app inbox                  | `workspaceId`, `userId`, `type`, `title`, `body`, `entity {type,id}`, `isRead`, `createdAt`                    |
+| `activitylogs`  | Human-readable feed           | `workspaceId`, `projectId?`, `actorId`, `action`, `entity`, `metadata`, `createdAt`                            |
+| `auditlogs`     | Append-only compliance record | `workspaceId?`, `actorId?`, `action`, `entity`, `before`, `after`, `ip`, `userAgent`, `requestId`, `createdAt` |
+| `subscriptions` | Plan state                    | `workspaceId` (unique), `plan`, `status`, `limits`, `currentPeriodStart/End`, `changedBy`                      |
+| `refreshtokens` | Session store                 | `userId`, `tokenHash`, `family`, `userAgent`, `ip`, `expiresAt`, `revokedAt?`, `replacedBy?`                   |
+| `taskhistory`   | Field-level change log        | `workspaceId`, `taskId`, `actorId`, `field`, `from`, `to`, `createdAt`                                         |
 
 ### 8.10 Access patterns → index design
 
 Indexes are derived from queries, not guessed. The dominant queries:
 
-| # | Query | Frequency |
-|---|---|---|
-| Q1 | Board: tasks by project + status, ordered by rank | Very high |
-| Q2 | My Tasks: tasks by workspace + assignee, open only | High |
-| Q3 | Task list with filters (status, priority, assignee, due) + sort + page | High |
-| Q4 | Comments for a task, newest first, paged | High |
-| Q5 | Unread notifications for a user in a workspace | Very high (polling badge) |
-| Q6 | Membership by user + workspace | Every request (cached) |
-| Q7 | Activity feed by workspace, newest first | Medium |
-| Q8 | Global text search over tasks/projects/comments | Medium |
-| Q9 | Dashboard aggregates by workspace | Medium (cached) |
+| #   | Query                                                                  | Frequency                 |
+| --- | ---------------------------------------------------------------------- | ------------------------- |
+| Q1  | Board: tasks by project + status, ordered by rank                      | Very high                 |
+| Q2  | My Tasks: tasks by workspace + assignee, open only                     | High                      |
+| Q3  | Task list with filters (status, priority, assignee, due) + sort + page | High                      |
+| Q4  | Comments for a task, newest first, paged                               | High                      |
+| Q5  | Unread notifications for a user in a workspace                         | Very high (polling badge) |
+| Q6  | Membership by user + workspace                                         | Every request (cached)    |
+| Q7  | Activity feed by workspace, newest first                               | Medium                    |
+| Q8  | Global text search over tasks/projects/comments                        | Medium                    |
+| Q9  | Dashboard aggregates by workspace                                      | Medium (cached)           |
 
 ### 8.11 Index catalogue
 
-| Collection | Index | Serves | Notes |
-|---|---|---|---|
-| `users` | `{ email: 1 }` unique | login | |
-| `workspaces` | `{ slug: 1 }` unique | routing | |
-| `memberships` | `{ userId: 1, workspaceId: 1 }` unique | Q6 | the hottest index in the system |
-| `memberships` | `{ workspaceId: 1, role: 1, status: 1 }` | member list | |
-| `projects` | `{ workspaceId: 1, isArchived: 1, updatedAt: -1 }` | project list | |
-| `projects` | `{ workspaceId: 1, key: 1 }` unique | key generation | |
-| `tasks` | `{ workspaceId: 1, projectId: 1, status: 1, rank: 1 }` | **Q1** | covers the board query and its sort |
-| `tasks` | `{ workspaceId: 1, assigneeId: 1, status: 1, dueDate: 1 }` | **Q2** | |
-| `tasks` | `{ workspaceId: 1, projectId: 1, priority: 1, dueDate: 1 }` | Q3 | |
-| `tasks` | `{ workspaceId: 1, completedAt: -1 }` sparse | Q9 charts | |
-| `tasks` | text index on `title`, `description` | Q8 | |
-| `comments` | `{ taskId: 1, createdAt: -1 }` | Q4 | |
-| `comments` | `{ workspaceId: 1, createdAt: -1 }` | search/feed | |
-| `notifications` | `{ userId: 1, workspaceId: 1, isRead: 1, createdAt: -1 }` | **Q5** | |
-| `notifications` | `{ createdAt: 1 }` TTL 90 days | pruning | TTL index replaces a cleanup job |
-| `activitylogs` | `{ workspaceId: 1, createdAt: -1 }` | Q7 | |
-| `auditlogs` | `{ workspaceId: 1, action: 1, createdAt: -1 }` | audit filter | |
-| `invitations` | `{ tokenHash: 1 }` unique | accept flow | |
-| `invitations` | `{ workspaceId: 1, email: 1, status: 1 }` | duplicate check | |
-| `refreshtokens` | `{ tokenHash: 1 }` unique | refresh | |
-| `refreshtokens` | `{ expiresAt: 1 }` TTL | auto-cleanup | |
-| `subscriptions` | `{ workspaceId: 1 }` unique | limit checks | |
+| Collection      | Index                                                       | Serves          | Notes                               |
+| --------------- | ----------------------------------------------------------- | --------------- | ----------------------------------- |
+| `users`         | `{ email: 1 }` unique                                       | login           |                                     |
+| `workspaces`    | `{ slug: 1 }` unique                                        | routing         |                                     |
+| `memberships`   | `{ userId: 1, workspaceId: 1 }` unique                      | Q6              | the hottest index in the system     |
+| `memberships`   | `{ workspaceId: 1, role: 1, status: 1 }`                    | member list     |                                     |
+| `projects`      | `{ workspaceId: 1, isArchived: 1, updatedAt: -1 }`          | project list    |                                     |
+| `projects`      | `{ workspaceId: 1, key: 1 }` unique                         | key generation  |                                     |
+| `tasks`         | `{ workspaceId: 1, projectId: 1, status: 1, rank: 1 }`      | **Q1**          | covers the board query and its sort |
+| `tasks`         | `{ workspaceId: 1, assigneeId: 1, status: 1, dueDate: 1 }`  | **Q2**          |                                     |
+| `tasks`         | `{ workspaceId: 1, projectId: 1, priority: 1, dueDate: 1 }` | Q3              |                                     |
+| `tasks`         | `{ workspaceId: 1, completedAt: -1 }` sparse                | Q9 charts       |                                     |
+| `tasks`         | text index on `title`, `description`                        | Q8              |                                     |
+| `comments`      | `{ taskId: 1, createdAt: -1 }`                              | Q4              |                                     |
+| `comments`      | `{ workspaceId: 1, createdAt: -1 }`                         | search/feed     |                                     |
+| `notifications` | `{ userId: 1, workspaceId: 1, isRead: 1, createdAt: -1 }`   | **Q5**          |                                     |
+| `notifications` | `{ createdAt: 1 }` TTL 90 days                              | pruning         | TTL index replaces a cleanup job    |
+| `activitylogs`  | `{ workspaceId: 1, createdAt: -1 }`                         | Q7              |                                     |
+| `auditlogs`     | `{ workspaceId: 1, action: 1, createdAt: -1 }`              | audit filter    |                                     |
+| `invitations`   | `{ tokenHash: 1 }` unique                                   | accept flow     |                                     |
+| `invitations`   | `{ workspaceId: 1, email: 1, status: 1 }`                   | duplicate check |                                     |
+| `refreshtokens` | `{ tokenHash: 1 }` unique                                   | refresh         |                                     |
+| `refreshtokens` | `{ expiresAt: 1 }` TTL                                      | auto-cleanup    |                                     |
+| `subscriptions` | `{ workspaceId: 1 }` unique                                 | limit checks    |                                     |
 
 **Index review gate (Phase 9):** run `explain("executionStats")` on Q1–Q9 against the seed dataset. Any `COLLSCAN` on a hot path, or `totalDocsExamined` far exceeding `nReturned`, is a defect to fix before the phase closes.
 
 ### 8.12 Transactions & concurrency
 
-| Situation | Approach |
-|---|---|
-| Task key generation (`WEB-101`) | `findOneAndUpdate` with `$inc` on `projects.taskCounter` — atomic, no read-then-write race |
-| Accept invitation (create membership + update invitation + increment counter) | Multi-document transaction (requires a replica set — enabled in Compose) |
-| Usage counters | Atomic `$inc` on the workspace document; never read-modify-write |
-| Concurrent task edits | Optimistic concurrency via a `version` field; conflicting write returns `409 CONFLICT` |
-| Board move | Single-document update of `status` + `rank` |
+| Situation                                                                     | Approach                                                                                   |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Task key generation (`WEB-101`)                                               | `findOneAndUpdate` with `$inc` on `projects.taskCounter` — atomic, no read-then-write race |
+| Accept invitation (create membership + update invitation + increment counter) | Multi-document transaction (requires a replica set — enabled in Compose)                   |
+| Usage counters                                                                | Atomic `$inc` on the workspace document; never read-modify-write                           |
+| Concurrent task edits                                                         | Optimistic concurrency via a `version` field; conflicting write returns `409 CONFLICT`     |
+| Board move                                                                    | Single-document update of `status` + `rank`                                                |
 
 ---
 
@@ -893,7 +893,7 @@ Every response, without exception, uses one of these two shapes.
 ```json
 {
   "success": true,
-  "data": { },
+  "data": {},
   "message": "Task created successfully"
 }
 ```
@@ -903,7 +903,7 @@ Every response, without exception, uses one of these two shapes.
 ```json
 {
   "success": true,
-  "data": [ ],
+  "data": [],
   "meta": {
     "page": 2,
     "limit": 20,
@@ -923,9 +923,7 @@ Every response, without exception, uses one of these two shapes.
   "error": {
     "code": "TASK_NOT_FOUND",
     "message": "Task does not exist",
-    "details": [
-      { "field": "title", "issue": "Title must be at least 3 characters" }
-    ]
+    "details": [{ "field": "title", "issue": "Title must be at least 3 characters" }]
   },
   "requestId": "b8f2c1a4-..."
 }
@@ -935,37 +933,37 @@ Every response, without exception, uses one of these two shapes.
 
 ### 9.3 Status code policy
 
-| Code | Used for |
-|---|---|
-| `200` | Successful read or update |
-| `201` | Resource created (with `Location` header) |
-| `204` | Successful delete, no body |
-| `400` | Malformed request / validation failure |
-| `401` | Missing, expired, or invalid credentials |
+| Code  | Used for                                                   |
+| ----- | ---------------------------------------------------------- |
+| `200` | Successful read or update                                  |
+| `201` | Resource created (with `Location` header)                  |
+| `204` | Successful delete, no body                                 |
+| `400` | Malformed request / validation failure                     |
+| `401` | Missing, expired, or invalid credentials                   |
 | `403` | Authenticated but not permitted — includes `LIMIT_REACHED` |
-| `404` | Not found **or** not visible to this tenant |
-| `409` | Conflict — duplicate slug/key, version conflict |
-| `413` | Payload/file too large |
-| `422` | Semantically invalid (e.g. `dueDate` before `startDate`) |
-| `429` | Rate limit exceeded (includes `Retry-After`) |
-| `500` | Unhandled server error — never leaks a stack trace |
-| `503` | Dependency unavailable (readiness failure) |
+| `404` | Not found **or** not visible to this tenant                |
+| `409` | Conflict — duplicate slug/key, version conflict            |
+| `413` | Payload/file too large                                     |
+| `422` | Semantically invalid (e.g. `dueDate` before `startDate`)   |
+| `429` | Rate limit exceeded (includes `Retry-After`)               |
+| `500` | Unhandled server error — never leaks a stack trace         |
+| `503` | Dependency unavailable (readiness failure)                 |
 
 ### 9.4 Conventions
 
-| Concern | Rule |
-|---|---|
-| Naming | Plural, lower-case, kebab-case resources; camelCase JSON fields |
-| Verbs | `POST` create, `GET` read, `PATCH` partial update, `PUT` avoided, `DELETE` remove |
-| Tenant scope | `X-Workspace-Id` header on every workspace-scoped call |
-| Idempotency | `Idempotency-Key` header honoured on `POST /invitations` and `POST /tasks` |
-| Filtering | Query params, whitelisted per endpoint: `?status=&priority=&assigneeId=&dueFrom=&dueTo=` |
-| Sorting | `?sort=-createdAt,title` — leading `-` is descending; fields whitelisted |
-| Pagination | `?page=&limit=` (max 100) for tables; `?cursor=&limit=` for feeds |
-| Field selection | `?fields=id,title,status` where supported |
-| Dates | ISO 8601 UTC in, ISO 8601 UTC out. The client localises. |
-| Ids | Serialised as `id` (string), never leaking `_id`/`__v` |
-| Versioning | Path-based `/api/v1`. Breaking changes create `/v2`; both run during a deprecation window announced by a `Deprecation` header. |
+| Concern         | Rule                                                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Naming          | Plural, lower-case, kebab-case resources; camelCase JSON fields                                                                |
+| Verbs           | `POST` create, `GET` read, `PATCH` partial update, `PUT` avoided, `DELETE` remove                                              |
+| Tenant scope    | `X-Workspace-Id` header on every workspace-scoped call                                                                         |
+| Idempotency     | `Idempotency-Key` header honoured on `POST /invitations` and `POST /tasks`                                                     |
+| Filtering       | Query params, whitelisted per endpoint: `?status=&priority=&assigneeId=&dueFrom=&dueTo=`                                       |
+| Sorting         | `?sort=-createdAt,title` — leading `-` is descending; fields whitelisted                                                       |
+| Pagination      | `?page=&limit=` (max 100) for tables; `?cursor=&limit=` for feeds                                                              |
+| Field selection | `?fields=id,title,status` where supported                                                                                      |
+| Dates           | ISO 8601 UTC in, ISO 8601 UTC out. The client localises.                                                                       |
+| Ids             | Serialised as `id` (string), never leaking `_id`/`__v`                                                                         |
+| Versioning      | Path-based `/api/v1`. Breaking changes create `/v2`; both run during a deprecation window announced by a `Deprecation` header. |
 
 ### 9.5 Documentation
 
@@ -977,10 +975,10 @@ OpenAPI 3.1 spec assembled from per-route definitions and served at `/api/docs` 
 
 ### 10.1 Token strategy
 
-| Token | Lifetime | Storage | Contents |
-|---|---|---|---|
-| **Access token** (JWT) | 15 min | Memory in the SPA (never `localStorage`) | `sub`, `email`, `isPlatformAdmin`, `iat`, `exp`, `jti` |
-| **Refresh token** (opaque random) | 7 days | `httpOnly`, `Secure`, `SameSite=Strict` cookie, path-scoped to `/api/v1/auth` | Nothing — it is a random 256-bit value; its hash is a database row |
+| Token                             | Lifetime | Storage                                                                       | Contents                                                           |
+| --------------------------------- | -------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| **Access token** (JWT)            | 15 min   | Memory in the SPA (never `localStorage`)                                      | `sub`, `email`, `isPlatformAdmin`, `iat`, `exp`, `jti`             |
+| **Refresh token** (opaque random) | 7 days   | `httpOnly`, `Secure`, `SameSite=Strict` cookie, path-scoped to `/api/v1/auth` | Nothing — it is a random 256-bit value; its hash is a database row |
 
 **Why the access token carries no role.** Roles are per workspace and can change mid-session. Embedding them would either force re-login on every role change or allow a stale privileged token. The role is resolved per request from the (cached) membership.
 
@@ -1068,15 +1066,15 @@ Authorization: Bearer <jwt>
 
 ### 10.4 Security controls
 
-| Control | Implementation |
-|---|---|
-| Password policy | ≥ 10 chars, not in a common-password list, checked server-side |
-| Hashing | bcrypt cost 12; re-hash on login if the cost factor has increased |
-| Brute force | Redis counters: 5 attempts / 15 min per IP+email, then a 15-minute lockout |
-| Token theft | Rotation + family revocation + UA/IP recorded per session |
-| CSRF | Refresh cookie is `SameSite=Strict` and path-scoped; the access token travels in a header, so it is not auto-attached by the browser |
-| Session visibility | Users can list and revoke their own sessions |
-| Enumeration | Uniform responses on register, login, and forgot-password |
+| Control            | Implementation                                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Password policy    | ≥ 10 chars, not in a common-password list, checked server-side                                                                       |
+| Hashing            | bcrypt cost 12; re-hash on login if the cost factor has increased                                                                    |
+| Brute force        | Redis counters: 5 attempts / 15 min per IP+email, then a 15-minute lockout                                                           |
+| Token theft        | Rotation + family revocation + UA/IP recorded per session                                                                            |
+| CSRF               | Refresh cookie is `SameSite=Strict` and path-scoped; the access token travels in a header, so it is not auto-attached by the browser |
+| Session visibility | Users can list and revoke their own sessions                                                                                         |
+| Enumeration        | Uniform responses on register, login, and forgot-password                                                                            |
 
 ---
 
@@ -1094,13 +1092,13 @@ All three are checked, in that order, on every protected request. Passing one ne
 
 ### 11.2 Roles
 
-| Role | Intent |
-|---|---|
-| `OWNER` | The workspace belongs to them: billing, deletion, ownership transfer, admin management |
-| `ADMIN` | Operates the workspace: members, all projects, settings, audit |
-| `MANAGER` | Runs delivery: creates projects, assigns work, manages project members |
-| `MEMBER` | Does the work: creates and updates tasks, comments, uploads |
-| `VIEWER` | Observes: read-only across everything they can see |
+| Role      | Intent                                                                                 |
+| --------- | -------------------------------------------------------------------------------------- |
+| `OWNER`   | The workspace belongs to them: billing, deletion, ownership transfer, admin management |
+| `ADMIN`   | Operates the workspace: members, all projects, settings, audit                         |
+| `MANAGER` | Runs delivery: creates projects, assigns work, manages project members                 |
+| `MEMBER`  | Does the work: creates and updates tasks, comments, uploads                            |
+| `VIEWER`  | Observes: read-only across everything they can see                                     |
 
 Roles are **hierarchical in level** (`OWNER 50 > ADMIN 40 > MANAGER 30 > MEMBER 20 > VIEWER 10`) but permissions are granted **explicitly per role**, not by inheritance alone — an explicit matrix is auditable, whereas inheritance hides surprises.
 
@@ -1108,36 +1106,36 @@ Roles are **hierarchical in level** (`OWNER 50 > ADMIN 40 > MANAGER 30 > MEMBER 
 
 Permissions are named `resource:action`. ✅ = allowed, ⚠️ = allowed with a scope condition, ❌ = denied.
 
-| Permission | OWNER | ADMIN | MANAGER | MEMBER | VIEWER |
-|---|:--:|:--:|:--:|:--:|:--:|
-| `workspace:read` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `workspace:update` | ✅ | ✅ | ❌ | ❌ | ❌ |
-| `workspace:delete` | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `workspace:transfer` | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `billing:read` | ✅ | ✅ | ❌ | ❌ | ❌ |
-| `billing:manage` | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `member:read` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `member:invite` | ✅ | ✅ | ⚠️¹ | ❌ | ❌ |
-| `member:update_role` | ✅ | ⚠️² | ❌ | ❌ | ❌ |
-| `member:remove` | ✅ | ⚠️² | ❌ | ❌ | ❌ |
-| `project:read` | ✅ | ✅ | ✅ | ⚠️³ | ⚠️³ |
-| `project:create` | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `project:update` | ✅ | ✅ | ⚠️⁴ | ❌ | ❌ |
-| `project:archive` | ✅ | ✅ | ⚠️⁴ | ❌ | ❌ |
-| `project:delete` | ✅ | ✅ | ❌ | ❌ | ❌ |
-| `project:manage_members` | ✅ | ✅ | ⚠️⁴ | ❌ | ❌ |
-| `task:read` | ✅ | ✅ | ✅ | ⚠️³ | ⚠️³ |
-| `task:create` | ✅ | ✅ | ✅ | ✅ | ❌ |
-| `task:update` | ✅ | ✅ | ✅ | ⚠️⁵ | ❌ |
-| `task:assign` | ✅ | ✅ | ✅ | ⚠️⁶ | ❌ |
-| `task:delete` | ✅ | ✅ | ⚠️⁴ | ❌ | ❌ |
-| `comment:create` | ✅ | ✅ | ✅ | ✅ | ❌ |
-| `comment:update` | ⚠️⁷ | ⚠️⁷ | ⚠️⁷ | ⚠️⁷ | ❌ |
-| `comment:delete` | ✅ | ✅ | ⚠️⁷ | ⚠️⁷ | ❌ |
-| `attachment:upload` | ✅ | ✅ | ✅ | ✅ | ❌ |
-| `attachment:delete` | ✅ | ✅ | ⚠️⁷ | ⚠️⁷ | ❌ |
-| `activity:read` | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `audit:read` | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Permission               | OWNER | ADMIN | MANAGER | MEMBER | VIEWER |
+| ------------------------ | :---: | :---: | :-----: | :----: | :----: |
+| `workspace:read`         |  ✅   |  ✅   |   ✅    |   ✅   |   ✅   |
+| `workspace:update`       |  ✅   |  ✅   |   ❌    |   ❌   |   ❌   |
+| `workspace:delete`       |  ✅   |  ❌   |   ❌    |   ❌   |   ❌   |
+| `workspace:transfer`     |  ✅   |  ❌   |   ❌    |   ❌   |   ❌   |
+| `billing:read`           |  ✅   |  ✅   |   ❌    |   ❌   |   ❌   |
+| `billing:manage`         |  ✅   |  ❌   |   ❌    |   ❌   |   ❌   |
+| `member:read`            |  ✅   |  ✅   |   ✅    |   ✅   |   ✅   |
+| `member:invite`          |  ✅   |  ✅   |   ⚠️¹   |   ❌   |   ❌   |
+| `member:update_role`     |  ✅   |  ⚠️²  |   ❌    |   ❌   |   ❌   |
+| `member:remove`          |  ✅   |  ⚠️²  |   ❌    |   ❌   |   ❌   |
+| `project:read`           |  ✅   |  ✅   |   ✅    |  ⚠️³   |  ⚠️³   |
+| `project:create`         |  ✅   |  ✅   |   ✅    |   ❌   |   ❌   |
+| `project:update`         |  ✅   |  ✅   |   ⚠️⁴   |   ❌   |   ❌   |
+| `project:archive`        |  ✅   |  ✅   |   ⚠️⁴   |   ❌   |   ❌   |
+| `project:delete`         |  ✅   |  ✅   |   ❌    |   ❌   |   ❌   |
+| `project:manage_members` |  ✅   |  ✅   |   ⚠️⁴   |   ❌   |   ❌   |
+| `task:read`              |  ✅   |  ✅   |   ✅    |  ⚠️³   |  ⚠️³   |
+| `task:create`            |  ✅   |  ✅   |   ✅    |   ✅   |   ❌   |
+| `task:update`            |  ✅   |  ✅   |   ✅    |  ⚠️⁵   |   ❌   |
+| `task:assign`            |  ✅   |  ✅   |   ✅    |  ⚠️⁶   |   ❌   |
+| `task:delete`            |  ✅   |  ✅   |   ⚠️⁴   |   ❌   |   ❌   |
+| `comment:create`         |  ✅   |  ✅   |   ✅    |   ✅   |   ❌   |
+| `comment:update`         |  ⚠️⁷  |  ⚠️⁷  |   ⚠️⁷   |  ⚠️⁷   |   ❌   |
+| `comment:delete`         |  ✅   |  ✅   |   ⚠️⁷   |  ⚠️⁷   |   ❌   |
+| `attachment:upload`      |  ✅   |  ✅   |   ✅    |   ✅   |   ❌   |
+| `attachment:delete`      |  ✅   |  ✅   |   ⚠️⁷   |  ⚠️⁷   |   ❌   |
+| `activity:read`          |  ✅   |  ✅   |   ✅    |   ✅   |   ✅   |
+| `audit:read`             |  ✅   |  ✅   |   ❌    |   ❌   |   ❌   |
 
 **Scope conditions**
 
@@ -1195,16 +1193,16 @@ Cache is added in response to a **measured** cost, never by reflex. Each entry b
 
 ### 12.2 Key catalogue
 
-| Key pattern | Contents | TTL | Invalidated by |
-|---|---|---|---|
-| `ws:{wsId}:dashboard` | Dashboard aggregate result | 5 min | Task create/update/delete, project create/archive |
-| `ws:{wsId}:members` | Member list with roles | 10 min | Invite accepted, role change, removal |
-| `member:{userId}:{wsId}` | `{ role, status }` for request scoping | 5 min | Role change, removal, workspace suspension |
-| `user:{userId}` | Minimal user for token validation | 60 s | Profile update, suspension, password change |
-| `proj:{projectId}:stats` | `{ total, completed, overdue }` | 5 min | Task status change |
-| `ws:{wsId}:sub` | Plan + limits | 30 min | Plan change |
-| `notif:{userId}:{wsId}:unread` | Unread count | 60 s | Notification create / mark-read |
-| `search:{wsId}:{queryHash}` | Search results | 60 s | TTL only (short by design) |
+| Key pattern                    | Contents                               | TTL    | Invalidated by                                    |
+| ------------------------------ | -------------------------------------- | ------ | ------------------------------------------------- |
+| `ws:{wsId}:dashboard`          | Dashboard aggregate result             | 5 min  | Task create/update/delete, project create/archive |
+| `ws:{wsId}:members`            | Member list with roles                 | 10 min | Invite accepted, role change, removal             |
+| `member:{userId}:{wsId}`       | `{ role, status }` for request scoping | 5 min  | Role change, removal, workspace suspension        |
+| `user:{userId}`                | Minimal user for token validation      | 60 s   | Profile update, suspension, password change       |
+| `proj:{projectId}:stats`       | `{ total, completed, overdue }`        | 5 min  | Task status change                                |
+| `ws:{wsId}:sub`                | Plan + limits                          | 30 min | Plan change                                       |
+| `notif:{userId}:{wsId}:unread` | Unread count                           | 60 s   | Notification create / mark-read                   |
+| `search:{wsId}:{queryHash}`    | Search results                         | 60 s   | TTL only (short by design)                        |
 
 ### 12.3 Patterns
 
@@ -1235,39 +1233,39 @@ invalidateWorkspace(wsId) → SCAN + UNLINK on  ws:{wsId}:*
 
 Sliding-window counters in Redis, shared across all API replicas.
 
-| Scope | Limit | Key |
-|---|---|---|
-| Global per IP | 300 req / 15 min | `rl:ip:{ip}` |
-| Authenticated per user | 1000 req / 15 min | `rl:user:{userId}` |
-| Login | 5 / 15 min | `rl:login:{ip}:{emailHash}` |
-| Register | 3 / hour | `rl:register:{ip}` |
-| Forgot password | 3 / hour | `rl:pwreset:{emailHash}` |
-| Invitations | 50 / hour | `rl:invite:{wsId}` |
-| File upload | 30 / hour | `rl:upload:{userId}` |
-| Search | 60 / min | `rl:search:{userId}` |
+| Scope                  | Limit             | Key                         |
+| ---------------------- | ----------------- | --------------------------- |
+| Global per IP          | 300 req / 15 min  | `rl:ip:{ip}`                |
+| Authenticated per user | 1000 req / 15 min | `rl:user:{userId}`          |
+| Login                  | 5 / 15 min        | `rl:login:{ip}:{emailHash}` |
+| Register               | 3 / hour          | `rl:register:{ip}`          |
+| Forgot password        | 3 / hour          | `rl:pwreset:{emailHash}`    |
+| Invitations            | 50 / hour         | `rl:invite:{wsId}`          |
+| File upload            | 30 / hour         | `rl:upload:{userId}`        |
+| Search                 | 60 / min          | `rl:search:{userId}`        |
 
 Responses include `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`, and `Retry-After` on a `429`.
 
 ### 12.5 Other Redis uses
 
-| Use | Structure | Notes |
-|---|---|---|
-| Email/OTP verification codes | `otp:{purpose}:{userId}` string, TTL 5–15 min | Expiry is the feature — no cleanup job needed |
-| Socket.IO adapter | Pub/Sub channels | Enables multi-replica real-time |
-| Presence | `presence:{wsId}` sorted set, score = last heartbeat | Trim entries older than 60 s |
-| BullMQ | Lists/streams managed by the library | §13 |
-| Idempotency keys | `idem:{key}` → response hash, TTL 24 h | Prevents duplicate creates on retry |
+| Use                          | Structure                                            | Notes                                         |
+| ---------------------------- | ---------------------------------------------------- | --------------------------------------------- |
+| Email/OTP verification codes | `otp:{purpose}:{userId}` string, TTL 5–15 min        | Expiry is the feature — no cleanup job needed |
+| Socket.IO adapter            | Pub/Sub channels                                     | Enables multi-replica real-time               |
+| Presence                     | `presence:{wsId}` sorted set, score = last heartbeat | Trim entries older than 60 s                  |
+| BullMQ                       | Lists/streams managed by the library                 | §13                                           |
+| Idempotency keys             | `idem:{key}` → response hash, TTL 24 h               | Prevents duplicate creates on retry           |
 
 ### 12.6 Failure policy
 
 Redis is a **performance dependency, not a correctness dependency**, with one deliberate exception.
 
-| Redis down | Behaviour |
-|---|---|
-| Cache reads | Fall through to MongoDB; log a warning; the app stays correct |
-| Rate limiting | **Fail closed** on auth endpoints (reject), fail open elsewhere — an outage must not become an open brute-force window |
-| Queues | Enqueue fails → the API returns `503` for actions that require it (e.g. invitations), rather than silently dropping the work |
-| Sockets | Real-time degrades; the client falls back to polling on reconnect |
+| Redis down    | Behaviour                                                                                                                    |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Cache reads   | Fall through to MongoDB; log a warning; the app stays correct                                                                |
+| Rate limiting | **Fail closed** on auth endpoints (reject), fail open elsewhere — an outage must not become an open brute-force window       |
+| Queues        | Enqueue fails → the API returns `503` for actions that require it (e.g. invitations), rather than silently dropping the work |
+| Sockets       | Real-time degrades; the client falls back to polling on reconnect                                                            |
 
 ---
 
@@ -1289,44 +1287,44 @@ No retry. No visibility.             Full visibility in the queue dashboard.
 
 ### 13.2 Queue topology
 
-| Queue | Concurrency | Jobs |
-|---|---|---|
-| `email` | 5 | verification, invitation, password reset, notification email, digest |
-| `notification` | 10 | fan-out of in-app notifications, socket emit |
-| `file` | 3 | image resize, storage deletion, orphan sweep |
-| `maintenance` | 1 | usage reconciliation, purge, rank rebalance, cache warm |
-| `analytics` | 2 | dashboard pre-computation |
+| Queue          | Concurrency | Jobs                                                                 |
+| -------------- | ----------- | -------------------------------------------------------------------- |
+| `email`        | 5           | verification, invitation, password reset, notification email, digest |
+| `notification` | 10          | fan-out of in-app notifications, socket emit                         |
+| `file`         | 3           | image resize, storage deletion, orphan sweep                         |
+| `maintenance`  | 1           | usage reconciliation, purge, rank rebalance, cache warm              |
+| `analytics`    | 2           | dashboard pre-computation                                            |
 
 ### 13.3 Job catalogue
 
-| Job | Trigger | Payload | Retries | Backoff | Idempotency key |
-|---|---|---|---|---|---|
-| `email.verification` | Register / resend | `{ userId, token }` | 3 | exp 2s | `verify:{userId}:{tokenHash}` |
-| `email.invitation` | Invite created | `{ invitationId }` | 5 | exp 5s | `invite:{invitationId}` |
-| `email.passwordReset` | Forgot password | `{ userId, token }` | 3 | exp 2s | `reset:{tokenHash}` |
-| `email.notification` | Notification with email preference | `{ notificationId }` | 3 | exp 10s | `notif-email:{notificationId}` |
-| `email.digest` | Repeatable, daily 08:00 per user timezone | `{ userId, workspaceId }` | 2 | fixed 60s | `digest:{userId}:{yyyy-mm-dd}` |
-| `notification.fanout` | Task assigned / mention / status change | `{ event, entityId, recipientIds }` | 3 | exp 2s | `fanout:{eventId}` |
-| `file.resize` | Avatar or logo upload | `{ attachmentId }` | 3 | exp 5s | `resize:{attachmentId}` |
-| `file.delete` | Entity deleted | `{ storageKey }` | 5 | exp 30s | `del:{storageKey}` |
-| `file.orphanSweep` | Repeatable, weekly | — | 1 | — | date-based |
-| `maintenance.reconcileUsage` | Repeatable, nightly | `{ workspaceId }` | 2 | fixed | `recon:{wsId}:{date}` |
-| `maintenance.purgeWorkspace` | Delete + 30 days | `{ workspaceId }` | 3 | exp 60s | `purge:{wsId}` |
-| `maintenance.rebalanceRanks` | Ranks converge | `{ projectId, status }` | 2 | fixed | `rank:{projectId}:{status}` |
-| `task.overdueScan` | Repeatable, hourly | — | 2 | fixed | hour-based |
+| Job                          | Trigger                                   | Payload                             | Retries | Backoff   | Idempotency key                |
+| ---------------------------- | ----------------------------------------- | ----------------------------------- | ------- | --------- | ------------------------------ |
+| `email.verification`         | Register / resend                         | `{ userId, token }`                 | 3       | exp 2s    | `verify:{userId}:{tokenHash}`  |
+| `email.invitation`           | Invite created                            | `{ invitationId }`                  | 5       | exp 5s    | `invite:{invitationId}`        |
+| `email.passwordReset`        | Forgot password                           | `{ userId, token }`                 | 3       | exp 2s    | `reset:{tokenHash}`            |
+| `email.notification`         | Notification with email preference        | `{ notificationId }`                | 3       | exp 10s   | `notif-email:{notificationId}` |
+| `email.digest`               | Repeatable, daily 08:00 per user timezone | `{ userId, workspaceId }`           | 2       | fixed 60s | `digest:{userId}:{yyyy-mm-dd}` |
+| `notification.fanout`        | Task assigned / mention / status change   | `{ event, entityId, recipientIds }` | 3       | exp 2s    | `fanout:{eventId}`             |
+| `file.resize`                | Avatar or logo upload                     | `{ attachmentId }`                  | 3       | exp 5s    | `resize:{attachmentId}`        |
+| `file.delete`                | Entity deleted                            | `{ storageKey }`                    | 5       | exp 30s   | `del:{storageKey}`             |
+| `file.orphanSweep`           | Repeatable, weekly                        | —                                   | 1       | —         | date-based                     |
+| `maintenance.reconcileUsage` | Repeatable, nightly                       | `{ workspaceId }`                   | 2       | fixed     | `recon:{wsId}:{date}`          |
+| `maintenance.purgeWorkspace` | Delete + 30 days                          | `{ workspaceId }`                   | 3       | exp 60s   | `purge:{wsId}`                 |
+| `maintenance.rebalanceRanks` | Ranks converge                            | `{ projectId, status }`             | 2       | fixed     | `rank:{projectId}:{status}`    |
+| `task.overdueScan`           | Repeatable, hourly                        | —                                   | 2       | fixed     | hour-based                     |
 
 ### 13.4 Reliability rules
 
-| Rule | Why |
-|---|---|
+| Rule                                                                                                   | Why                                                                                       |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
 | **Every job is idempotent.** Before acting, check an idempotency marker or a state flag on the record. | At-least-once delivery is the norm; a retry after a partial success must not double-send. |
-| **Payloads carry ids, not objects.** | The worker re-reads current state; a stale embedded snapshot causes wrong output. |
-| **Jobs validate their own preconditions.** | The invitation may have been revoked between enqueue and execution. |
-| `removeOnComplete: 1000`, `removeOnFail: 5000` | Keeps the recent history for debugging without unbounded Redis growth. |
-| Exponential backoff with jitter | Prevents a retry stampede against a struggling provider. |
-| Failed jobs are inspectable and re-runnable from the admin panel | A silent dead job is an outage you find out about from a customer. |
-| Graceful shutdown drains active jobs before exit | Otherwise a deploy kills in-flight work mid-write. |
-| Worker failures log with `requestId` and `jobId` | Traceability from an HTTP request through to the job that it spawned. |
+| **Payloads carry ids, not objects.**                                                                   | The worker re-reads current state; a stale embedded snapshot causes wrong output.         |
+| **Jobs validate their own preconditions.**                                                             | The invitation may have been revoked between enqueue and execution.                       |
+| `removeOnComplete: 1000`, `removeOnFail: 5000`                                                         | Keeps the recent history for debugging without unbounded Redis growth.                    |
+| Exponential backoff with jitter                                                                        | Prevents a retry stampede against a struggling provider.                                  |
+| Failed jobs are inspectable and re-runnable from the admin panel                                       | A silent dead job is an outage you find out about from a customer.                        |
+| Graceful shutdown drains active jobs before exit                                                       | Otherwise a deploy kills in-flight work mid-write.                                        |
+| Worker failures log with `requestId` and `jobId`                                                       | Traceability from an HTTP request through to the job that it spawned.                     |
 
 ### 13.5 Dead-letter handling
 
@@ -1338,11 +1336,11 @@ After the final retry the job is marked failed and kept. A daily `maintenance` j
 
 ### 14.1 When real-time is used
 
-| Use real-time | Do **not** use real-time |
-|---|---|
-| Someone else changes shared state you are looking at (board, task, comments) | Your own actions — those update optimistically from the response |
-| Notifications arriving | Anything the user must be able to reload to see (that is a read endpoint) |
-| Presence | Bulk data loads — sockets are not a data-fetch API |
+| Use real-time                                                                | Do **not** use real-time                                                  |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Someone else changes shared state you are looking at (board, task, comments) | Your own actions — those update optimistically from the response          |
+| Notifications arriving                                                       | Anything the user must be able to reload to see (that is a read endpoint) |
+| Presence                                                                     | Bulk data loads — sockets are not a data-fetch API                        |
 
 ### 14.2 Connection and authorization
 
@@ -1367,27 +1365,27 @@ Client connects
 
 **Server → client**
 
-| Event | Room | Payload | Triggered by |
-|---|---|---|---|
-| `task:created` | `project:{id}` | task summary | Task create |
-| `task:updated` | `project:{id}` | `{ taskId, changes }` | Task patch |
-| `task:moved` | `project:{id}` | `{ taskId, fromStatus, toStatus, rank }` | Board move |
-| `task:deleted` | `project:{id}` | `{ taskId }` | Delete |
-| `comment:created` | `task:{id}` | comment | Comment create |
-| `comment:updated` / `comment:deleted` | `task:{id}` | `{ commentId }` | Edit/delete |
-| `notification:new` | `user:{id}` | notification | Fan-out job |
-| `presence:update` | `task:{id}` | `{ userIds }` | Join/leave/heartbeat |
-| `member:role_changed` | `user:{id}` | `{ workspaceId, role }` | Role change — the client refetches permissions |
-| `workspace:suspended` | `ws:{id}` | — | Admin action — clients force-logout of that workspace |
+| Event                                 | Room           | Payload                                  | Triggered by                                          |
+| ------------------------------------- | -------------- | ---------------------------------------- | ----------------------------------------------------- |
+| `task:created`                        | `project:{id}` | task summary                             | Task create                                           |
+| `task:updated`                        | `project:{id}` | `{ taskId, changes }`                    | Task patch                                            |
+| `task:moved`                          | `project:{id}` | `{ taskId, fromStatus, toStatus, rank }` | Board move                                            |
+| `task:deleted`                        | `project:{id}` | `{ taskId }`                             | Delete                                                |
+| `comment:created`                     | `task:{id}`    | comment                                  | Comment create                                        |
+| `comment:updated` / `comment:deleted` | `task:{id}`    | `{ commentId }`                          | Edit/delete                                           |
+| `notification:new`                    | `user:{id}`    | notification                             | Fan-out job                                           |
+| `presence:update`                     | `task:{id}`    | `{ userIds }`                            | Join/leave/heartbeat                                  |
+| `member:role_changed`                 | `user:{id}`    | `{ workspaceId, role }`                  | Role change — the client refetches permissions        |
+| `workspace:suspended`                 | `ws:{id}`      | —                                        | Admin action — clients force-logout of that workspace |
 
 **Client → server**
 
-| Event | Payload | Purpose |
-|---|---|---|
+| Event                                | Payload           | Purpose              |
+| ------------------------------------ | ----------------- | -------------------- |
 | `workspace:join` / `workspace:leave` | `{ workspaceId }` | Scope the connection |
-| `project:subscribe` / `unsubscribe` | `{ projectId }` | Board room |
-| `task:subscribe` / `unsubscribe` | `{ taskId }` | Detail room |
-| `presence:heartbeat` | `{ taskId }` | Every 30 s |
+| `project:subscribe` / `unsubscribe`  | `{ projectId }`   | Board room           |
+| `task:subscribe` / `unsubscribe`     | `{ taskId }`      | Detail room          |
+| `presence:heartbeat`                 | `{ taskId }`      | Every 30 s           |
 
 ### 14.4 Multi-replica correctness
 
@@ -1395,12 +1393,12 @@ Client connects
 
 ### 14.5 Client-side rules
 
-| Rule | Reason |
-|---|---|
-| Real-time updates patch the React Query cache; they never trigger a full refetch | A refetch storm on every event defeats the purpose |
-| Ignore events whose `actorId` is the current user | The optimistic update already applied them; re-applying causes flicker |
-| Reconnect with backoff; on reconnect, refetch the active view once | Events emitted while disconnected are lost by design — resync explicitly |
-| Sockets never carry authorization decisions | The UI still asks the API before mutating |
+| Rule                                                                             | Reason                                                                   |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Real-time updates patch the React Query cache; they never trigger a full refetch | A refetch storm on every event defeats the purpose                       |
+| Ignore events whose `actorId` is the current user                                | The optimistic update already applied them; re-applying causes flicker   |
+| Reconnect with backoff; on reconnect, refetch the active view once               | Events emitted while disconnected are lost by design — resync explicitly |
+| Sockets never carry authorization decisions                                      | The UI still asks the API before mutating                                |
 
 ---
 
@@ -1428,17 +1426,17 @@ Express
 
 ### 15.2 Rules
 
-| Concern | Decision |
-|---|---|
-| What is stored in Mongo | Metadata only: `filename`, `mimeType`, `sizeBytes`, `storageKey`, `uploaderId` |
-| Type validation | Magic-byte sniff **and** extension allowlist. A `.png` that is really a `.html` is rejected. |
-| Allowlist | `png, jpg, jpeg, gif, webp, pdf, txt, csv, doc(x), xls(x), zip` |
-| Size | 10 MB default; the plan may raise it |
-| Filenames | Never used as storage keys — a UUID is. The original name is stored for display only, sanitized on render. |
-| Access | Objects are private. Downloads go through `GET /attachments/:id/download`, which authorizes and then redirects to a short-lived signed URL (5 min). |
-| Deletion | Metadata soft-deleted immediately; the object removed by a `file.delete` job (retryable). |
-| Orphans | A weekly sweep reconciles storage against metadata in both directions. |
-| Untrusted content | Uploaded files are never served from the application origin — a stored HTML/SVG file must not execute in the app's origin. `Content-Disposition: attachment` on download. |
+| Concern                 | Decision                                                                                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| What is stored in Mongo | Metadata only: `filename`, `mimeType`, `sizeBytes`, `storageKey`, `uploaderId`                                                                                            |
+| Type validation         | Magic-byte sniff **and** extension allowlist. A `.png` that is really a `.html` is rejected.                                                                              |
+| Allowlist               | `png, jpg, jpeg, gif, webp, pdf, txt, csv, doc(x), xls(x), zip`                                                                                                           |
+| Size                    | 10 MB default; the plan may raise it                                                                                                                                      |
+| Filenames               | Never used as storage keys — a UUID is. The original name is stored for display only, sanitized on render.                                                                |
+| Access                  | Objects are private. Downloads go through `GET /attachments/:id/download`, which authorizes and then redirects to a short-lived signed URL (5 min).                       |
+| Deletion                | Metadata soft-deleted immediately; the object removed by a `file.delete` job (retryable).                                                                                 |
+| Orphans                 | A weekly sweep reconciles storage against metadata in both directions.                                                                                                    |
+| Untrusted content       | Uploaded files are never served from the application origin — a stored HTML/SVG file must not execute in the app's origin. `Content-Disposition: attachment` on download. |
 
 ---
 
@@ -1478,9 +1476,9 @@ Rule 5 is not stylistic. `{ ...req.query }` lets a caller send `?status[$ne]=nul
 
 ### 16.3 Pagination
 
-| Style | Where | Why |
-|---|---|---|
-| **Offset** (`page`/`limit`) | Tables where the user jumps pages: task list, members, audit | Users expect page numbers and totals |
+| Style                         | Where                                                        | Why                                                            |
+| ----------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------- |
+| **Offset** (`page`/`limit`)   | Tables where the user jumps pages: task list, members, audit | Users expect page numbers and totals                           |
 | **Cursor** (`cursor`/`limit`) | Feeds and infinite scroll: activity, notifications, comments | Stable under inserts, and does not degrade as the offset grows |
 
 Totals are returned for offset pagination but **counted with a capped `countDocuments`** — an exact count over a huge collection is itself a slow query.
@@ -1499,17 +1497,17 @@ Results are cached for 60 s under `search:{wsId}:{queryHash}`.
 
 ### 17.1 Plans
 
-| Quota | FREE | PRO | BUSINESS |
-|---|---|---|---|
-| Projects | 3 | 50 | Unlimited |
-| Members (seats) | 5 | 50 | Unlimited |
-| Tasks | 100 | 10,000 | Unlimited |
-| Storage | 100 MB | 10 GB | 100 GB |
-| File size cap | 5 MB | 25 MB | 100 MB |
+| Quota              | FREE    | PRO    | BUSINESS  |
+| ------------------ | ------- | ------ | --------- |
+| Projects           | 3       | 50     | Unlimited |
+| Members (seats)    | 5       | 50     | Unlimited |
+| Tasks              | 100     | 10,000 | Unlimited |
+| Storage            | 100 MB  | 10 GB  | 100 GB    |
+| File size cap      | 5 MB    | 25 MB  | 100 MB    |
 | Activity retention | 30 days | 1 year | Unlimited |
-| Advanced analytics | ❌ | ✅ | ✅ |
-| Audit log export | ❌ | ❌ | ✅ |
-| API rate limit | 1× | 3× | 10× |
+| Advanced analytics | ❌      | ✅     | ✅        |
+| Audit log export   | ❌      | ❌     | ✅        |
+| API rate limit     | 1×      | 3×     | 10×       |
 
 `Unlimited` is stored as `-1`, not `null` or a large number, so the check is explicit.
 
@@ -1548,11 +1546,11 @@ Drift is expected in any incremental-counter design; the job is the answer, and 
 
 ### 17.4 Plan changes
 
-| Direction | Behaviour |
-|---|---|
-| Upgrade | Applies immediately; new limits cached; audit entry written |
-| Downgrade | Blocked if current usage exceeds the target plan; the response names exactly what must be reduced ("You have 12 projects; the PRO plan allows 50 — remove 0" / "FREE allows 3 — archive 9 projects first") |
-| Suspension | Workspace becomes read-only; writes return `403 WORKSPACE_SUSPENDED` |
+| Direction  | Behaviour                                                                                                                                                                                                  |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Upgrade    | Applies immediately; new limits cached; audit entry written                                                                                                                                                |
+| Downgrade  | Blocked if current usage exceeds the target plan; the response names exactly what must be reduced ("You have 12 projects; the PRO plan allows 50 — remove 0" / "FREE allows 3 — archive 9 projects first") |
+| Suspension | Workspace becomes read-only; writes return `403 WORKSPACE_SUSPENDED`                                                                                                                                       |
 
 ### 17.5 v1.1 payment path (designed for, not built)
 
@@ -1581,18 +1579,18 @@ Domain event (task assigned)
 
 ### 18.2 Types
 
-| Type | Recipients | Default channels |
-|---|---|---|
-| `TASK_ASSIGNED` | New assignee | in-app + email |
-| `TASK_STATUS_CHANGED` | Assignee, reporter | in-app |
-| `TASK_DUE_SOON` | Assignee (24 h before) | in-app + email |
-| `TASK_OVERDUE` | Assignee, project lead | in-app + email |
-| `COMMENT_ADDED` | Assignee, reporter, thread participants | in-app |
-| `MENTIONED` | Mentioned users | in-app + email |
-| `INVITATION_RECEIVED` | Invitee | email |
-| `MEMBER_JOINED` | Admins | in-app |
-| `ROLE_CHANGED` | Affected member | in-app + email |
-| `PROJECT_DEADLINE` | Project members | in-app + email |
+| Type                  | Recipients                              | Default channels |
+| --------------------- | --------------------------------------- | ---------------- |
+| `TASK_ASSIGNED`       | New assignee                            | in-app + email   |
+| `TASK_STATUS_CHANGED` | Assignee, reporter                      | in-app           |
+| `TASK_DUE_SOON`       | Assignee (24 h before)                  | in-app + email   |
+| `TASK_OVERDUE`        | Assignee, project lead                  | in-app + email   |
+| `COMMENT_ADDED`       | Assignee, reporter, thread participants | in-app           |
+| `MENTIONED`           | Mentioned users                         | in-app + email   |
+| `INVITATION_RECEIVED` | Invitee                                 | email            |
+| `MEMBER_JOINED`       | Admins                                  | in-app           |
+| `ROLE_CHANGED`        | Affected member                         | in-app + email   |
+| `PROJECT_DEADLINE`    | Project members                         | in-app + email   |
 
 ### 18.3 Design rules
 
@@ -1608,14 +1606,14 @@ Domain event (task assigned)
 
 Two logs with different jobs. Conflating them is a common mistake: the activity feed is a product feature, the audit log is a compliance record.
 
-| | Activity Log | Audit Log |
-|---|---|---|
-| **Audience** | All workspace members | `ADMIN` and above |
-| **Purpose** | "What is happening in this project?" | "Who did what, when, from where?" |
-| **Content** | Human-readable summary | Actor, action, entity, before/after diff, IP, UA, requestId |
-| **Retention** | Plan-dependent (30 d – unlimited) | Minimum 1 year |
-| **Mutability** | Append-only | Append-only, **no update or delete API exists at all** |
-| **Includes security events** | No | Yes — failed logins, denials, token reuse, role changes |
+|                              | Activity Log                         | Audit Log                                                   |
+| ---------------------------- | ------------------------------------ | ----------------------------------------------------------- |
+| **Audience**                 | All workspace members                | `ADMIN` and above                                           |
+| **Purpose**                  | "What is happening in this project?" | "Who did what, when, from where?"                           |
+| **Content**                  | Human-readable summary               | Actor, action, entity, before/after diff, IP, UA, requestId |
+| **Retention**                | Plan-dependent (30 d – unlimited)    | Minimum 1 year                                              |
+| **Mutability**               | Append-only                          | Append-only, **no update or delete API exists at all**      |
+| **Includes security events** | No                                   | Yes — failed logins, denials, token reuse, role changes     |
 
 ### 19.1 Writing
 
@@ -1680,12 +1678,12 @@ src/
 
 The most consequential frontend decision: **server state and client state are different problems and use different tools.**
 
-| State | Owner | Examples |
-|---|---|---|
-| Server data | **React Query** | Projects, tasks, comments, notifications, dashboard |
-| Global client state | **Redux Toolkit** | Access token, current user, active workspace, theme, sidebar |
-| Local UI state | `useState` / `useReducer` | Modal open, form draft, drag state |
-| URL state | React Router search params | Filters, page, active tab, opened task |
+| State               | Owner                      | Examples                                                     |
+| ------------------- | -------------------------- | ------------------------------------------------------------ |
+| Server data         | **React Query**            | Projects, tasks, comments, notifications, dashboard          |
+| Global client state | **Redux Toolkit**          | Access token, current user, active workspace, theme, sidebar |
+| Local UI state      | `useState` / `useReducer`  | Modal open, form draft, drag state                           |
+| URL state           | React Router search params | Filters, page, active tab, opened task                       |
 
 **Rule:** server data never enters Redux. Caching, invalidation, refetching, and stale handling are React Query's job; duplicating that in Redux is how frontends rot.
 
@@ -1731,16 +1729,16 @@ The refresh queue matters: without it, five parallel requests hitting an expired
 
 ### 20.5 Component conventions
 
-| Concern | Convention |
-|---|---|
-| Component size | One responsibility; extract at roughly 150 lines |
-| Data fetching | Only in page-level components and custom hooks, never in leaf presentational components |
-| Forms | React Hook Form + Zod, sharing the schema shape with the backend contract |
-| Async states | Every query surface renders loading / empty / error / success — never a bare spinner-or-nothing |
-| Lists | Virtualised beyond 100 rows |
-| Errors | `ErrorBoundary` per route; a crash in the board never blanks the app shell |
-| Memoisation | `useMemo`/`useCallback` applied to measured cost, not sprinkled by habit |
-| Accessibility | Semantic elements, labelled inputs, focus traps in modals, `aria-live` for toasts |
+| Concern        | Convention                                                                                      |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| Component size | One responsibility; extract at roughly 150 lines                                                |
+| Data fetching  | Only in page-level components and custom hooks, never in leaf presentational components         |
+| Forms          | React Hook Form + Zod, sharing the schema shape with the backend contract                       |
+| Async states   | Every query surface renders loading / empty / error / success — never a bare spinner-or-nothing |
+| Lists          | Virtualised beyond 100 rows                                                                     |
+| Errors         | `ErrorBoundary` per route; a crash in the board never blanks the app shell                      |
+| Memoisation    | `useMemo`/`useCallback` applied to measured cost, not sprinkled by habit                        |
+| Accessibility  | Semantic elements, labelled inputs, focus traps in modals, `aria-live` for toasts               |
 
 ### 20.6 Optimistic updates
 
@@ -1775,16 +1773,16 @@ Weighted toward integration deliberately: in this system the bugs that matter li
 
 Pure functions, no I/O, sub-second.
 
-| Target | Cases |
-|---|---|
-| `can(role, permission)` | Every role × every permission — the full matrix |
-| `checkSubscriptionLimit()` | Under, at, over, unlimited (`-1`) |
-| `calculateProjectProgress()` | Zero tasks, all done, partial, rounding |
-| `generateRank()` | Between two ranks, at the head, at the tail, convergence trigger |
-| `buildTaskFilter()` | Each param, injection attempts, unknown params rejected |
-| `parseMentions()` | Valid, unknown user, duplicate, non-member, escaped text |
-| `sanitizeHtml()` | Script tags, event handlers, `javascript:` URLs |
-| Token helpers | Sign, verify, expire, tamper |
+| Target                       | Cases                                                            |
+| ---------------------------- | ---------------------------------------------------------------- |
+| `can(role, permission)`      | Every role × every permission — the full matrix                  |
+| `checkSubscriptionLimit()`   | Under, at, over, unlimited (`-1`)                                |
+| `calculateProjectProgress()` | Zero tasks, all done, partial, rounding                          |
+| `generateRank()`             | Between two ranks, at the head, at the tail, convergence trigger |
+| `buildTaskFilter()`          | Each param, injection attempts, unknown params rejected          |
+| `parseMentions()`            | Valid, unknown user, duplicate, non-member, escaped text         |
+| `sanitizeHtml()`             | Script tags, event handlers, `javascript:` URLs                  |
+| Token helpers                | Sign, verify, expire, tamper                                     |
 
 ### 21.3 Integration tests
 
@@ -1816,23 +1814,23 @@ Playwright against the Docker Compose stack; one spec per CUJ plus:
 
 ### 21.5 Specialist suites
 
-| Suite | Purpose |
-|---|---|
-| `tests/security/tenant-isolation.spec.js` | Generated from the route table (§7.4) |
-| `tests/security/authz.spec.js` | The full permission matrix, both directions |
-| `tests/security/injection.spec.js` | NoSQL operator injection, XSS payloads in every text field |
-| `tests/performance/` | k6 scripts asserting NFR-01…NFR-06 |
+| Suite                                     | Purpose                                                    |
+| ----------------------------------------- | ---------------------------------------------------------- |
+| `tests/security/tenant-isolation.spec.js` | Generated from the route table (§7.4)                      |
+| `tests/security/authz.spec.js`            | The full permission matrix, both directions                |
+| `tests/security/injection.spec.js`        | NoSQL operator injection, XSS payloads in every text field |
+| `tests/performance/`                      | k6 scripts asserting NFR-01…NFR-06                         |
 
 ### 21.6 Coverage and gates
 
-| Area | Line coverage target |
-|---|---|
-| Services (business logic) | 85% |
-| Permission module | 100% |
-| Controllers | 70% |
-| Utilities | 90% |
-| Overall backend | 75% |
-| Frontend (hooks + logic) | 60% |
+| Area                      | Line coverage target |
+| ------------------------- | -------------------- |
+| Services (business logic) | 85%                  |
+| Permission module         | 100%                 |
+| Controllers               | 70%                  |
+| Utilities                 | 90%                  |
+| Overall backend           | 75%                  |
+| Frontend (hooks + logic)  | 60%                  |
 
 CI fails below threshold. Coverage is a floor for confidence, not a score to farm — a 100% covered module with no boundary assertions is worthless, and reviews check assertions, not percentages.
 
@@ -1848,29 +1846,29 @@ CI fails below threshold. Coverage is a floor for confidence, not a score to far
 
 ### 22.1 Threat model (STRIDE, abbreviated)
 
-| Threat | Scenario | Mitigation |
-|---|---|---|
-| **Spoofing** | Stolen access token replayed | 15-minute expiry; `passwordChangedAt` invalidation; sessions revocable |
-| **Tampering** | Client sends `role: OWNER` in a profile update | Role is never accepted from a request body; server-side allowlist on every update |
-| **Repudiation** | "I never removed that member" | Immutable audit log with actor, IP, UA, requestId |
-| **Information disclosure** | Cross-tenant id probing (IDOR) | Every query filtered by `workspaceId`; `404` on a miss; generated isolation suite |
-| **Denial of service** | Credential stuffing, upload flooding | Redis rate limits per IP, user, and endpoint; body and file size caps; Nginx connection limits |
-| **Elevation of privilege** | `MEMBER` calls an admin endpoint directly | Server-side RBAC on every route; UI hiding is never the control |
+| Threat                     | Scenario                                       | Mitigation                                                                                     |
+| -------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **Spoofing**               | Stolen access token replayed                   | 15-minute expiry; `passwordChangedAt` invalidation; sessions revocable                         |
+| **Tampering**              | Client sends `role: OWNER` in a profile update | Role is never accepted from a request body; server-side allowlist on every update              |
+| **Repudiation**            | "I never removed that member"                  | Immutable audit log with actor, IP, UA, requestId                                              |
+| **Information disclosure** | Cross-tenant id probing (IDOR)                 | Every query filtered by `workspaceId`; `404` on a miss; generated isolation suite              |
+| **Denial of service**      | Credential stuffing, upload flooding           | Redis rate limits per IP, user, and endpoint; body and file size caps; Nginx connection limits |
+| **Elevation of privilege** | `MEMBER` calls an admin endpoint directly      | Server-side RBAC on every route; UI hiding is never the control                                |
 
 ### 22.2 OWASP Top 10 — explicit disposition
 
-| Risk | How it is addressed here |
-|---|---|
-| **A01 Broken Access Control** | The primary risk in this product. Two-stage authorization, mandatory tenant filter, `findById` banned for tenant entities, generated IDOR suite, permission matrix tests. |
-| **A02 Cryptographic Failures** | bcrypt cost 12; tokens hashed at rest; HTTPS + HSTS; secure cookie flags; secrets from the environment only. |
-| **A03 Injection** | Zod validation at every edge; explicit filter construction (never spreading `req.query`); Mongoose `sanitizeFilter`; output sanitisation for comment bodies. |
-| **A04 Insecure Design** | This document. Threat model before code; limits, quotas, and abuse cases designed in. |
-| **A05 Security Misconfiguration** | Helmet; CORS allowlist (no wildcard with credentials); stack traces suppressed in production; Swagger disabled in production; non-root Docker user. |
-| **A06 Vulnerable Components** | `npm audit` in CI with a high-severity failure gate; Dependabot; pinned base images. |
-| **A07 Auth Failures** | Rate limiting and lockout; refresh rotation with reuse detection; no enumeration; session management; strong password policy. |
-| **A08 Data Integrity Failures** | Signed JWTs; lockfile committed and `npm ci` in CI; image digests pinned. |
-| **A09 Logging & Monitoring Failures** | Structured logs with correlation ids; security events audited; failed-job alerting; health checks. |
-| **A10 SSRF** | No user-supplied URL is fetched server-side in v1.0. If added later, an allowlist plus DNS-rebinding protection is required — recorded as a constraint. |
+| Risk                                  | How it is addressed here                                                                                                                                                  |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A01 Broken Access Control**         | The primary risk in this product. Two-stage authorization, mandatory tenant filter, `findById` banned for tenant entities, generated IDOR suite, permission matrix tests. |
+| **A02 Cryptographic Failures**        | bcrypt cost 12; tokens hashed at rest; HTTPS + HSTS; secure cookie flags; secrets from the environment only.                                                              |
+| **A03 Injection**                     | Zod validation at every edge; explicit filter construction (never spreading `req.query`); Mongoose `sanitizeFilter`; output sanitisation for comment bodies.              |
+| **A04 Insecure Design**               | This document. Threat model before code; limits, quotas, and abuse cases designed in.                                                                                     |
+| **A05 Security Misconfiguration**     | Helmet; CORS allowlist (no wildcard with credentials); stack traces suppressed in production; Swagger disabled in production; non-root Docker user.                       |
+| **A06 Vulnerable Components**         | `npm audit` in CI with a high-severity failure gate; Dependabot; pinned base images.                                                                                      |
+| **A07 Auth Failures**                 | Rate limiting and lockout; refresh rotation with reuse detection; no enumeration; session management; strong password policy.                                             |
+| **A08 Data Integrity Failures**       | Signed JWTs; lockfile committed and `npm ci` in CI; image digests pinned.                                                                                                 |
+| **A09 Logging & Monitoring Failures** | Structured logs with correlation ids; security events audited; failed-job alerting; health checks.                                                                        |
+| **A10 SSRF**                          | No user-supplied URL is fetched server-side in v1.0. If added later, an allowlist plus DNS-rebinding protection is required — recorded as a constraint.                   |
 
 ### 22.3 Manual security review checklist (Phase 9 gate)
 
@@ -1920,43 +1918,43 @@ Structured JSON via Pino, one line per event.
 }
 ```
 
-| Rule | Detail |
-|---|---|
+| Rule        | Detail                                                                                                              |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- |
 | Correlation | `requestId` generated at the edge, propagated via `AsyncLocalStorage`, attached to job payloads, returned on errors |
-| Redaction | `password`, `token`, `authorization`, `cookie`, `passwordHash` redacted by configuration |
-| Levels | `error` needs action · `warn` degraded but handled · `info` lifecycle · `debug` local only |
-| Volume | No logging inside loops over collections; sample high-frequency events |
+| Redaction   | `password`, `token`, `authorization`, `cookie`, `passwordHash` redacted by configuration                            |
+| Levels      | `error` needs action · `warn` degraded but handled · `info` lifecycle · `debug` local only                          |
+| Volume      | No logging inside loops over collections; sample high-frequency events                                              |
 
 ### 23.2 Metrics
 
-| Metric | Why it matters |
-|---|---|
-| Request rate, error rate, duration (p50/p95/p99) by route | The core service health signal |
-| 4xx by code | A spike in `403` means a permission regression or an attack |
-| Mongo query duration, connection pool saturation | The first place latency appears |
-| Redis hit ratio, latency | A collapsing hit ratio means an invalidation bug |
-| Queue depth, job duration, failure rate by queue | Worker health |
-| Socket connections, rooms, emit rate | Real-time health |
+| Metric                                                                | Why it matters                                               |
+| --------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Request rate, error rate, duration (p50/p95/p99) by route             | The core service health signal                               |
+| 4xx by code                                                           | A spike in `403` means a permission regression or an attack  |
+| Mongo query duration, connection pool saturation                      | The first place latency appears                              |
+| Redis hit ratio, latency                                              | A collapsing hit ratio means an invalidation bug             |
+| Queue depth, job duration, failure rate by queue                      | Worker health                                                |
+| Socket connections, rooms, emit rate                                  | Real-time health                                             |
 | Business: signups, active workspaces, tasks/day, limit-reached events | Product signal — `LIMIT_REACHED` is also a conversion signal |
 
 Exposed at `/metrics` (Prometheus format), scraped in production and not exposed publicly.
 
 ### 23.3 Health checks
 
-| Endpoint | Checks | Used by |
-|---|---|---|
-| `/healthz` | The process is alive | Container restart policy |
-| `/readyz` | Mongo `ping` + Redis `ping` | Load balancer — drains traffic while a dependency is down |
+| Endpoint   | Checks                      | Used by                                                   |
+| ---------- | --------------------------- | --------------------------------------------------------- |
+| `/healthz` | The process is alive        | Container restart policy                                  |
+| `/readyz`  | Mongo `ping` + Redis `ping` | Load balancer — drains traffic while a dependency is down |
 
 ### 23.4 Alerts (v1 — simple and honest)
 
-| Condition | Action |
-|---|---|
-| Error rate > 5% for 5 minutes | Email the platform admin |
-| Queue failures > 10 in an hour | Email |
-| `/readyz` failing for 2 minutes | Email + restart |
-| Disk > 85% | Email |
-| Nightly backup did not complete | Email |
+| Condition                       | Action                   |
+| ------------------------------- | ------------------------ |
+| Error rate > 5% for 5 minutes   | Email the platform admin |
+| Queue failures > 10 in an hour  | Email                    |
+| `/readyz` failing for 2 minutes | Email + restart          |
+| Disk > 85%                      | Email                    |
+| Nightly backup did not complete | Email                    |
 
 ### 23.5 Runbooks (written in Phase 10)
 
@@ -2016,7 +2014,7 @@ Route 53 → ACM certificate → EC2 (or ECS)
    CloudWatch for logs and alarms
 ```
 
-A pragmatic v1 runs API, worker, Nginx, and Redis on a single EC2 instance with managed MongoDB Atlas, because paying for a multi-node topology before there is traffic is not engineering, it is cosplay. The application is *designed* to scale out (stateless API, Redis adapter, separate workers) so the move is configuration, not a rewrite.
+A pragmatic v1 runs API, worker, Nginx, and Redis on a single EC2 instance with managed MongoDB Atlas, because paying for a multi-node topology before there is traffic is not engineering, it is cosplay. The application is _designed_ to scale out (stateless API, Redis adapter, separate workers) so the move is configuration, not a rewrite.
 
 ### 24.5 Deployment procedure
 
@@ -2038,22 +2036,22 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 
 ### 25.1 Overview
 
-| Phase | Theme | Est. | Primary risk retired |
-|---|---|---|---|
-| 1 | Foundations & environment | 3–5 d | "It works on my machine" |
-| 2 | React architecture & UI shell | 7–10 d | UI rewritten later for lack of structure |
-| 3 | Express API skeleton & contracts | 5–7 d | Inconsistent API, logic in controllers |
-| 4 | Data modelling & indexes | 5–7 d | Schema that cannot answer the real queries |
-| 5 | Authentication & tenancy | 10–14 d | Insecure auth; tenant leakage |
-| 6 | Core domain: projects, tasks, comments | 14–18 d | Business logic sprawl |
-| 7 | Redis: cache, rate limits, search, dashboard | 7–10 d | Cache invalidation bugs |
-| 8 | Queues, email, real-time | 10–12 d | Blocking requests; lost jobs |
-| 9 | Testing, security, performance, billing | 12–15 d | Shipping something unverified |
-| 10 | Docker, CI/CD, AWS, operations | 8–10 d | Undeployable / unoperable |
+| Phase | Theme                                        | Est.    | Primary risk retired                       |
+| ----- | -------------------------------------------- | ------- | ------------------------------------------ |
+| 1     | Foundations & environment                    | 3–5 d   | "It works on my machine"                   |
+| 2     | React architecture & UI shell                | 7–10 d  | UI rewritten later for lack of structure   |
+| 3     | Express API skeleton & contracts             | 5–7 d   | Inconsistent API, logic in controllers     |
+| 4     | Data modelling & indexes                     | 5–7 d   | Schema that cannot answer the real queries |
+| 5     | Authentication & tenancy                     | 10–14 d | Insecure auth; tenant leakage              |
+| 6     | Core domain: projects, tasks, comments       | 14–18 d | Business logic sprawl                      |
+| 7     | Redis: cache, rate limits, search, dashboard | 7–10 d  | Cache invalidation bugs                    |
+| 8     | Queues, email, real-time                     | 10–12 d | Blocking requests; lost jobs               |
+| 9     | Testing, security, performance, billing      | 12–15 d | Shipping something unverified              |
+| 10    | Docker, CI/CD, AWS, operations               | 8–10 d  | Undeployable / unoperable                  |
 
 **Total: roughly 80–110 working days** at a steady part-time pace. Estimates assume hand-written code with review, not generated code.
 
-**Sequencing rationale.** The frontend shell comes before the API (Phase 2 before 3) so that the API is designed against real screens instead of imagined ones. Data modelling (4) precedes authentication (5) because auth writes to those collections. Redis (7) is deliberately *after* the domain works, so caching is applied to measured cost rather than assumed cost. Testing has a dedicated phase (9) but tests are written continuously from Phase 3 onward — Phase 9 is for the specialist suites and the gates.
+**Sequencing rationale.** The frontend shell comes before the API (Phase 2 before 3) so that the API is designed against real screens instead of imagined ones. Data modelling (4) precedes authentication (5) because auth writes to those collections. Redis (7) is deliberately _after_ the domain works, so caching is applied to measured cost rather than assumed cost. Testing has a dedicated phase (9) but tests are written continuously from Phase 3 onward — Phase 9 is for the specialist suites and the gates.
 
 ---
 
@@ -2062,6 +2060,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **Goal:** a reproducible development environment and the repository skeleton, before any feature exists.
 
 **Deliverables**
+
 - Monorepo layout (`client/`, `server/`, `docker/`, `docs/`).
 - ESLint + Prettier + EditorConfig, shared config, enforced by a pre-commit hook.
 - `docker-compose.yml`: mongo (replica set), redis, mailhog.
@@ -2075,6 +2074,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **JavaScript revision focus:** modules (ESM vs CJS), `const`/`let` and scope, destructuring, spread/rest, template literals, the async entry point.
 
 **Definition of Done**
+
 - [ ] A clean clone plus `cp .env.example .env` plus `docker compose up` yields a running stack.
 - [ ] `curl localhost:5000/healthz` returns `200`.
 - [ ] The React app loads at `localhost:5173`.
@@ -2088,6 +2088,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **Goal:** the full navigational skeleton with mock data — every screen exists and is reachable before any of it is real.
 
 **Deliverables**
+
 - Routing tree per §20.3 with lazy-loaded route groups.
 - `AppShell`: sidebar, topbar, workspace switcher, user menu.
 - UI primitives: `Button`, `Input`, `Select`, `Textarea`, `Modal`, `Dropdown`, `Toast`, `Badge`, `Avatar`, `Skeleton`, `Table`, `Tabs`.
@@ -2100,6 +2101,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **React revision focus:** component composition, props, `useState`, `useEffect` and its dependency array, `useMemo`/`useCallback` (applied to measured cost), custom hooks, controlled forms, lifting state, context boundaries, list keys, conditional rendering, portals for modals.
 
 **Definition of Done**
+
 - [ ] Every route in §20.3 renders without console errors.
 - [ ] The board supports drag-and-drop across all four columns.
 - [ ] Every async surface has visible loading, empty, and error states.
@@ -2114,6 +2116,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **Goal:** the API's shape, standards, and middleware chain — before there is domain logic to distort them.
 
 **Deliverables**
+
 - Layered structure: `routes/ → middleware/ → controllers/ → services/ → models/`.
 - `AppError` class plus a central error handler producing the §9.2 envelope.
 - `asyncHandler` wrapper so no route needs a `try/catch` for propagation.
@@ -2128,6 +2131,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **Node revision focus:** the event loop, `async`/`await` with error propagation, middleware composition, closures in middleware factories, streams vs buffers for uploads, `process` signals for shutdown.
 
 **Definition of Done**
+
 - [ ] Every stub returns the standard envelope.
 - [ ] A thrown `AppError` and an unexpected `throw` both produce a correct, non-leaking response.
 - [ ] Every response carries `X-Request-Id`, and logs carry the same value.
@@ -2142,6 +2146,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **Goal:** schemas that answer the real queries, with the reasoning written down.
 
 **Deliverables**
+
 - All Mongoose schemas from §8, with validation, enums, defaults, and timestamps.
 - Every index from §8.11 declared in the schema and verified as built.
 - Seed script producing the reference scenario (§3.2).
@@ -2152,6 +2157,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **MongoDB revision focus:** embedding vs referencing, compound index prefix rules, covered queries, the aggregation pipeline (`$match`, `$group`, `$lookup`, `$facet`), `.lean()`, projections, atomic `$inc`, TTL indexes, transactions on a replica set.
 
 **Definition of Done**
+
 - [ ] Every tenant-owned schema has a required, immutable `workspaceId`.
 - [ ] Every compound index begins with `workspaceId`.
 - [ ] Q1–Q9 use an index — zero `COLLSCAN` on the seeded dataset.
@@ -2165,6 +2171,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 **The most security-critical phase.** Nothing here is approximated.
 
 **Deliverables**
+
 - Register, email verification, login, logout, refresh with rotation, forgot/reset/change password, session list and revocation.
 - bcrypt hashing; refresh tokens stored hashed with a family id.
 - Reuse detection with family revocation.
@@ -2177,6 +2184,7 @@ Nightly automated MongoDB Atlas snapshot with 7-day retention plus a weekly snap
 - Security audit events for auth and tenancy.
 
 **Definition of Done**
+
 - [ ] Every flow in §10.2 works end to end against MailHog.
 - [ ] A rotated refresh token, when replayed, revokes the family and forces re-login.
 - [ ] An access token issued before a password reset is rejected.
@@ -2205,6 +2213,7 @@ Project CRUD and archive, project members, atomic task-key generation, task CRUD
 Threaded comments, edit/soft-delete, @mention parsing validated against project members, uploads with magic-byte validation, authorized downloads, activity and audit logging on every mutation.
 
 **Definition of Done**
+
 - [ ] Every endpoint in §9.1 for these modules is implemented and documented.
 - [ ] Every permission in the §11.3 matrix has a passing allow test and a passing deny test.
 - [ ] Task keys are unique and gapless under 50 concurrent creates.
@@ -2220,6 +2229,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 **Goal:** performance work applied to measured cost, not assumed cost.
 
 **Deliverables**
+
 - Cache module: `get`/`set`/`del`/`invalidatePattern` (`SCAN` + `UNLINK`), namespaced keys.
 - The cache entries in §12.2 with their invalidation hooks.
 - Redis-backed sliding-window rate limiting per §12.4, with standard headers.
@@ -2231,6 +2241,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 - A measured before/after report committed to `docs/performance/`.
 
 **Definition of Done**
+
 - [ ] Every cache key has a documented invalidation trigger, and a test proving stale data does not survive a write.
 - [ ] Dashboard p95 drops below 100 ms cached, with the before/after numbers recorded.
 - [ ] Rate limits return `429` with `Retry-After` and are shared across two API replicas.
@@ -2245,6 +2256,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 **Goal:** move slow work off the request path and push changes to clients.
 
 **Deliverables**
+
 - BullMQ setup with the five queues in §13.2 and a separate worker entry point.
 - Every job in §13.3, each idempotent, each with a retry and backoff policy.
 - Email templates (verification, invitation, reset, notification, digest) rendered from a template module.
@@ -2257,6 +2269,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 - Admin queue dashboard.
 
 **Definition of Done**
+
 - [ ] Inviting 100 members responds in under 500 ms and all 100 emails arrive in MailHog.
 - [ ] Killing the worker mid-batch and restarting it completes the batch without duplicates.
 - [ ] A forced provider failure retries with backoff and lands in failed jobs, visible and retryable in the admin panel.
@@ -2272,6 +2285,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 **Goal:** prove the system, and add the commercial layer that depends on everything else existing.
 
 **Deliverables**
+
 - Unit suite (§21.2) with the permission module at 100%.
 - Integration suite covering every endpoint × role × tenant case.
 - The generated tenant-isolation suite.
@@ -2285,6 +2299,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 - Coverage gates enabled in CI.
 
 **Definition of Done**
+
 - [ ] Coverage thresholds (§21.6) met and enforced.
 - [ ] Every item on the manual security checklist is executed and recorded, with every finding fixed or explicitly accepted in writing.
 - [ ] All NFR performance targets met, with the k6 output committed.
@@ -2300,6 +2315,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 **Goal:** the system is deployable, observable, and recoverable by someone other than its author.
 
 **Deliverables**
+
 - Production multi-stage Dockerfiles (non-root, healthchecks, no dev dependencies).
 - Production `docker-compose.prod.yml`.
 - Nginx configuration: TLS, HTTP/2, gzip, static caching, WebSocket upgrade, security headers, body limits.
@@ -2313,6 +2329,7 @@ Threaded comments, edit/soft-delete, @mention parsing validated against project 
 - Final `ARCHITECTURE.md` with the diagram and the rationale for every component.
 
 **Definition of Done**
+
 - [ ] A push to `main` deploys to staging with no manual step.
 - [ ] A tagged release deploys to production after approval.
 - [ ] The production site serves HTTPS with a valid certificate and an A-grade TLS configuration.
@@ -2375,18 +2392,18 @@ promanage/
 
 ### 26.2 Naming
 
-| Kind | Convention | Example |
-|---|---|---|
-| Backend files | camelCase | `taskService.js` |
-| React components | PascalCase | `TaskCard.jsx` |
-| Hooks | `use` prefix | `usePermissions.js` |
-| Mongoose models | Singular PascalCase | `Task` → collection `tasks` |
-| Environment variables | SCREAMING_SNAKE | `MONGO_URI` |
-| Permissions | `resource:action` | `task:update` |
-| Error codes | SCREAMING_SNAKE | `LIMIT_REACHED` |
-| Socket events | `entity:action` | `task:moved` |
-| Job names | `queue.job` | `email.invitation` |
-| Branches | `type/short-description` | `feat/task-drag-drop` |
+| Kind                  | Convention               | Example                     |
+| --------------------- | ------------------------ | --------------------------- |
+| Backend files         | camelCase                | `taskService.js`            |
+| React components      | PascalCase               | `TaskCard.jsx`              |
+| Hooks                 | `use` prefix             | `usePermissions.js`         |
+| Mongoose models       | Singular PascalCase      | `Task` → collection `tasks` |
+| Environment variables | SCREAMING_SNAKE          | `MONGO_URI`                 |
+| Permissions           | `resource:action`        | `task:update`               |
+| Error codes           | SCREAMING_SNAKE          | `LIMIT_REACHED`             |
+| Socket events         | `entity:action`          | `task:moved`                |
+| Job names             | `queue.job`              | `email.invitation`          |
+| Branches              | `type/short-description` | `feat/task-drag-drop`       |
 
 ### 26.3 Git workflow
 
@@ -2424,20 +2441,20 @@ One short file per significant decision: context, options considered, decision, 
 
 ## 27. Risk Register
 
-| # | Risk | Likelihood | Impact | Mitigation | Trigger to act |
-|---|---|---|---|---|---|
-| R1 | A tenant-isolation bug leaks data across workspaces | Medium | **Critical** | Repository helpers require workspace scope; `findById` banned; generated isolation suite; a route without a test is a merge blocker | Any test in the isolation suite failing |
-| R2 | Scope creep turns a 10-phase plan into 20 | **High** | High | §2.4 is a contract; new ideas go to a v1.1 backlog file, not into the current phase | A phase overruns its estimate by more than 50% |
-| R3 | Cache invalidation bugs serve stale data | Medium | High | Delete-not-update; documented trigger per key; a test per key; short TTLs as a backstop | Any user-visible staleness |
-| R4 | Performance collapses on the load dataset | Medium | Medium | Load-seed from Phase 4; `explain()` gate; k6 in Phase 9 | Any hot-path `COLLSCAN` |
-| R5 | Motivation dips in the long Phase 6 | **High** | Medium | Split into 6a–6d with visible demos; each sub-milestone ends with something clickable | Two weeks without a merged sub-milestone |
-| R6 | Real-time complexity (multi-replica, reconnect) | Medium | Medium | Redis adapter configured from the outset; reconnect refetch; sockets carry no authorization | Duplicated or missing events in the two-browser test |
-| R7 | Jobs retry and duplicate side effects | Medium | High | Idempotency keys on every job; ids not objects in payloads; precondition checks | Any duplicate email in testing |
-| R8 | Deployment left to the last phase becomes a wall | Medium | High | Docker from Phase 1; CI from Phase 3 onward; deploy staging early rather than at the end | Phase 10 exceeding its estimate |
-| R9 | Tests skipped under time pressure | Medium | High | Coverage gates in CI; tests written per phase, not batched | Coverage dropping below threshold |
-| R10 | AWS cost surprise | Low | Medium | Single-instance v1; billing alarm at a set threshold; Atlas free/shared tier for staging | Any unexpected bill |
-| R11 | Secret committed to the repository | Low | **Critical** | `.env` git-ignored, `gitleaks` in CI, pre-commit scan | Any scan hit — rotate immediately |
-| R12 | AI used as a code generator, defeating the purpose | Medium | High | The working agreement (§1.2): hints not solutions, layer-level debugging guidance | Catching yourself pasting code you cannot explain |
+| #   | Risk                                                | Likelihood | Impact       | Mitigation                                                                                                                          | Trigger to act                                       |
+| --- | --------------------------------------------------- | ---------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| R1  | A tenant-isolation bug leaks data across workspaces | Medium     | **Critical** | Repository helpers require workspace scope; `findById` banned; generated isolation suite; a route without a test is a merge blocker | Any test in the isolation suite failing              |
+| R2  | Scope creep turns a 10-phase plan into 20           | **High**   | High         | §2.4 is a contract; new ideas go to a v1.1 backlog file, not into the current phase                                                 | A phase overruns its estimate by more than 50%       |
+| R3  | Cache invalidation bugs serve stale data            | Medium     | High         | Delete-not-update; documented trigger per key; a test per key; short TTLs as a backstop                                             | Any user-visible staleness                           |
+| R4  | Performance collapses on the load dataset           | Medium     | Medium       | Load-seed from Phase 4; `explain()` gate; k6 in Phase 9                                                                             | Any hot-path `COLLSCAN`                              |
+| R5  | Motivation dips in the long Phase 6                 | **High**   | Medium       | Split into 6a–6d with visible demos; each sub-milestone ends with something clickable                                               | Two weeks without a merged sub-milestone             |
+| R6  | Real-time complexity (multi-replica, reconnect)     | Medium     | Medium       | Redis adapter configured from the outset; reconnect refetch; sockets carry no authorization                                         | Duplicated or missing events in the two-browser test |
+| R7  | Jobs retry and duplicate side effects               | Medium     | High         | Idempotency keys on every job; ids not objects in payloads; precondition checks                                                     | Any duplicate email in testing                       |
+| R8  | Deployment left to the last phase becomes a wall    | Medium     | High         | Docker from Phase 1; CI from Phase 3 onward; deploy staging early rather than at the end                                            | Phase 10 exceeding its estimate                      |
+| R9  | Tests skipped under time pressure                   | Medium     | High         | Coverage gates in CI; tests written per phase, not batched                                                                          | Coverage dropping below threshold                    |
+| R10 | AWS cost surprise                                   | Low        | Medium       | Single-instance v1; billing alarm at a set threshold; Atlas free/shared tier for staging                                            | Any unexpected bill                                  |
+| R11 | Secret committed to the repository                  | Low        | **Critical** | `.env` git-ignored, `gitleaks` in CI, pre-commit scan                                                                               | Any scan hit — rotate immediately                    |
+| R12 | AI used as a code generator, defeating the purpose  | Medium     | High         | The working agreement (§1.2): hints not solutions, layer-level debugging guidance                                                   | Catching yourself pasting code you cannot explain    |
 
 ---
 
@@ -2445,95 +2462,95 @@ One short file per significant decision: context, options considered, decision, 
 
 ### Appendix A — Environment variables
 
-| Variable | Example | Notes |
-|---|---|---|
-| `NODE_ENV` | `development` | |
-| `PORT` | `5000` | |
-| `API_BASE_URL` | `http://localhost:5000` | |
-| `CLIENT_URL` | `http://localhost:5173` | CORS origin, email links |
-| `MONGO_URI` | `mongodb://mongo:27017/promanage?replicaSet=rs0` | Replica set required for transactions |
-| `REDIS_URL` | `redis://redis:6379` | |
-| `JWT_ACCESS_SECRET` | — | ≥ 32 random bytes |
-| `JWT_ACCESS_EXPIRES` | `15m` | |
-| `REFRESH_TOKEN_EXPIRES_DAYS` | `7` | |
-| `BCRYPT_ROUNDS` | `12` | |
-| `COOKIE_DOMAIN` | `localhost` | |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | MailHog locally | |
-| `EMAIL_FROM` | `ProManage <no-reply@promanage.app>` | |
-| `STORAGE_DRIVER` | `s3` \| `cloudinary` \| `local` | |
-| `S3_BUCKET` / `S3_REGION` / `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | — | |
-| `MAX_FILE_SIZE_MB` | `10` | |
-| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX` | `900000` / `300` | |
-| `LOG_LEVEL` | `debug` | |
-| `ENABLE_SWAGGER` | `true` | Must be `false` in production |
+| Variable                                                                  | Example                                          | Notes                                 |
+| ------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------- |
+| `NODE_ENV`                                                                | `development`                                    |                                       |
+| `PORT`                                                                    | `5000`                                           |                                       |
+| `API_BASE_URL`                                                            | `http://localhost:5000`                          |                                       |
+| `CLIENT_URL`                                                              | `http://localhost:5173`                          | CORS origin, email links              |
+| `MONGO_URI`                                                               | `mongodb://mongo:27017/promanage?replicaSet=rs0` | Replica set required for transactions |
+| `REDIS_URL`                                                               | `redis://redis:6379`                             |                                       |
+| `JWT_ACCESS_SECRET`                                                       | —                                                | ≥ 32 random bytes                     |
+| `JWT_ACCESS_EXPIRES`                                                      | `15m`                                            |                                       |
+| `REFRESH_TOKEN_EXPIRES_DAYS`                                              | `7`                                              |                                       |
+| `BCRYPT_ROUNDS`                                                           | `12`                                             |                                       |
+| `COOKIE_DOMAIN`                                                           | `localhost`                                      |                                       |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS`                     | MailHog locally                                  |                                       |
+| `EMAIL_FROM`                                                              | `ProManage <no-reply@promanage.app>`             |                                       |
+| `STORAGE_DRIVER`                                                          | `s3` \| `cloudinary` \| `local`                  |                                       |
+| `S3_BUCKET` / `S3_REGION` / `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | —                                                |                                       |
+| `MAX_FILE_SIZE_MB`                                                        | `10`                                             |                                       |
+| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX`                                 | `900000` / `300`                                 |                                       |
+| `LOG_LEVEL`                                                               | `debug`                                          |                                       |
+| `ENABLE_SWAGGER`                                                          | `true`                                           | Must be `false` in production         |
 
 Startup validates this set with a Zod schema and **exits on a missing or malformed value** — failing at boot beats failing at 2 a.m.
 
 ### Appendix B — Error code catalogue
 
-| Code | Status | Meaning |
-|---|---|---|
-| `VALIDATION_ERROR` | 400 | Input failed schema validation |
-| `INVALID_CREDENTIALS` | 401 | Wrong email or password (deliberately ambiguous) |
-| `TOKEN_EXPIRED` | 401 | Access token expired — client should refresh |
-| `TOKEN_INVALID` | 401 | Malformed or tampered token |
-| `REFRESH_TOKEN_INVALID` | 401 | Unknown, expired, or revoked refresh token |
-| `TOKEN_REUSE_DETECTED` | 401 | Rotated token replayed — family revoked |
-| `EMAIL_NOT_VERIFIED` | 403 | Verification required |
-| `ACCOUNT_SUSPENDED` | 403 | User disabled |
-| `NOT_A_MEMBER` | 403 | No membership in the requested workspace |
-| `INSUFFICIENT_PERMISSIONS` | 403 | Role lacks the permission |
-| `NOT_RESOURCE_OWNER` | 403 | Scope condition failed |
-| `LIMIT_REACHED` | 403 | Plan quota exhausted |
-| `WORKSPACE_SUSPENDED` | 403 | Workspace is read-only |
-| `RESOURCE_NOT_FOUND` | 404 | Missing, or belongs to another tenant |
-| `EMAIL_IN_USE` | 409 | Registration conflict |
-| `SLUG_TAKEN` / `PROJECT_KEY_TAKEN` | 409 | Uniqueness conflict |
-| `VERSION_CONFLICT` | 409 | Concurrent edit |
-| `ALREADY_MEMBER` | 409 | Duplicate invitation |
-| `FILE_TOO_LARGE` | 413 | Exceeds the size cap |
-| `UNSUPPORTED_FILE_TYPE` | 415 | Not on the allowlist |
-| `INVALID_DATE_RANGE` | 422 | Semantically invalid input |
-| `RATE_LIMIT_EXCEEDED` | 429 | Throttled |
-| `INTERNAL_ERROR` | 500 | Unhandled — logged with a requestId |
-| `SERVICE_UNAVAILABLE` | 503 | Dependency down |
+| Code                               | Status | Meaning                                          |
+| ---------------------------------- | ------ | ------------------------------------------------ |
+| `VALIDATION_ERROR`                 | 400    | Input failed schema validation                   |
+| `INVALID_CREDENTIALS`              | 401    | Wrong email or password (deliberately ambiguous) |
+| `TOKEN_EXPIRED`                    | 401    | Access token expired — client should refresh     |
+| `TOKEN_INVALID`                    | 401    | Malformed or tampered token                      |
+| `REFRESH_TOKEN_INVALID`            | 401    | Unknown, expired, or revoked refresh token       |
+| `TOKEN_REUSE_DETECTED`             | 401    | Rotated token replayed — family revoked          |
+| `EMAIL_NOT_VERIFIED`               | 403    | Verification required                            |
+| `ACCOUNT_SUSPENDED`                | 403    | User disabled                                    |
+| `NOT_A_MEMBER`                     | 403    | No membership in the requested workspace         |
+| `INSUFFICIENT_PERMISSIONS`         | 403    | Role lacks the permission                        |
+| `NOT_RESOURCE_OWNER`               | 403    | Scope condition failed                           |
+| `LIMIT_REACHED`                    | 403    | Plan quota exhausted                             |
+| `WORKSPACE_SUSPENDED`              | 403    | Workspace is read-only                           |
+| `RESOURCE_NOT_FOUND`               | 404    | Missing, or belongs to another tenant            |
+| `EMAIL_IN_USE`                     | 409    | Registration conflict                            |
+| `SLUG_TAKEN` / `PROJECT_KEY_TAKEN` | 409    | Uniqueness conflict                              |
+| `VERSION_CONFLICT`                 | 409    | Concurrent edit                                  |
+| `ALREADY_MEMBER`                   | 409    | Duplicate invitation                             |
+| `FILE_TOO_LARGE`                   | 413    | Exceeds the size cap                             |
+| `UNSUPPORTED_FILE_TYPE`            | 415    | Not on the allowlist                             |
+| `INVALID_DATE_RANGE`               | 422    | Semantically invalid input                       |
+| `RATE_LIMIT_EXCEEDED`              | 429    | Throttled                                        |
+| `INTERNAL_ERROR`                   | 500    | Unhandled — logged with a requestId              |
+| `SERVICE_UNAVAILABLE`              | 503    | Dependency down                                  |
 
 ### Appendix C — Glossary
 
-| Term | Meaning here |
-|---|---|
-| **Tenant** | A workspace. The isolation boundary for all data. |
-| **Membership** | The user↔workspace join that carries the role. |
-| **Permission** | A `resource:action` string checked against the role matrix. |
+| Term                | Meaning here                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------ |
+| **Tenant**          | A workspace. The isolation boundary for all data.                                    |
+| **Membership**      | The user↔workspace join that carries the role.                                       |
+| **Permission**      | A `resource:action` string checked against the role matrix.                          |
 | **Scope condition** | A resource-level rule applied after the coarse role check (e.g. "own comment only"). |
-| **Rank** | The lexicographic string ordering a task within a Kanban column. |
-| **Counter** | A denormalised usage number on the workspace, maintained by atomic `$inc`. |
-| **Fan-out** | Turning one event into many per-recipient jobs. |
-| **Idempotency** | Running the same job twice produces the same result as running it once. |
-| **CUJ** | Critical User Journey — a flow that must never break. |
-| **ADR** | Architecture Decision Record. |
+| **Rank**            | The lexicographic string ordering a task within a Kanban column.                     |
+| **Counter**         | A denormalised usage number on the workspace, maintained by atomic `$inc`.           |
+| **Fan-out**         | Turning one event into many per-recipient jobs.                                      |
+| **Idempotency**     | Running the same job twice produces the same result as running it once.              |
+| **CUJ**             | Critical User Journey — a flow that must never break.                                |
+| **ADR**             | Architecture Decision Record.                                                        |
 
 ### Appendix D — Learning outcomes by phase
 
-| Phase | What you should be able to explain afterwards |
-|---|---|
-| 1 | Why the environment is containerised, and what a replica set buys you locally |
-| 2 | How to structure a large React app, and which state belongs where |
-| 3 | Why controllers must stay thin, and how errors propagate through async middleware |
-| 4 | Why each collection is shaped as it is, and why each index exists |
-| 5 | The difference between authentication and authorization; why refresh rotation exists |
-| 6 | How to enforce permissions and tenancy together without duplicating logic |
-| 7 | When caching helps, and why invalidation is the hard part |
-| 8 | Why slow work belongs off the request path, and what idempotency protects you from |
-| 9 | Why "it works" and "it is correct" are different claims |
-| 10 | What it takes to operate software, not just write it |
+| Phase | What you should be able to explain afterwards                                        |
+| ----- | ------------------------------------------------------------------------------------ |
+| 1     | Why the environment is containerised, and what a replica set buys you locally        |
+| 2     | How to structure a large React app, and which state belongs where                    |
+| 3     | Why controllers must stay thin, and how errors propagate through async middleware    |
+| 4     | Why each collection is shaped as it is, and why each index exists                    |
+| 5     | The difference between authentication and authorization; why refresh rotation exists |
+| 6     | How to enforce permissions and tenancy together without duplicating logic            |
+| 7     | When caching helps, and why invalidation is the hard part                            |
+| 8     | Why slow work belongs off the request path, and what idempotency protects you from   |
+| 9     | Why "it works" and "it is correct" are different claims                              |
+| 10    | What it takes to operate software, not just write it                                 |
 
 ---
 
 ## Document Control
 
-| Version | Date | Change |
-|---|---|---|
-| 1.0 | 2026-09-06 | Initial plan derived from `idea.txt` |
+| Version | Date       | Change                               |
+| ------- | ---------- | ------------------------------------ |
+| 1.0     | 2026-09-06 | Initial plan derived from `idea.txt` |
 
 **Living document.** Update it when a decision changes, and record the reasoning in an ADR. A plan that stops matching the code is worse than no plan, because it lies with authority.
