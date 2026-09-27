@@ -1,5 +1,5 @@
 Project Name :
-ProManage
+Kanbrix
 Multi-tenant SaaS Project Management + Billing Platform
 Think mini Jira/Linear + Slack-ish collaboration. Features: auth, organizations/workspaces, roles & permissions, invitations, projects/tasks, comments, attachments, notifications, activity logs, search/filtering, subscription plans, usage limits, admin panel, background jobs, emails, pagination, rate limiting, audit logs, API versioning, tests, Docker, CI/CD, monitoring. Is se tum React/Next frontend, backend APIs, SQL/database design, RBAC, caching, queues, security, testing aur deployment almost sab revise kar loge.
 
@@ -798,7 +798,7 @@ And honestly, considering your existing professional experience, I think a **bas
 This Software is for 
 
 
-Bilkul. **ProManage** ko hum normal “Jira clone” nahi banayenge. Isko tumhara **production-level Full Stack training project** samjho jahan actual company/team ka complete workflow chalega.
+Bilkul. **Kanbrix** ko hum normal “Jira clone” nahi banayenge. Isko tumhara **production-level Full Stack training project** samjho jahan actual company/team ka complete workflow chalega.
 
 ![Image](https://images.openai.com/static-rsc-4/VZQC57bIB85aNNO62s5nVYADpa330qchbbjof8I5dIH9VFqs74y_WENp7msy_0-yE7HRRWW0Nz0Sosidl_sTiiu6Euf4Ip1S5Wvus2Iycu-W8FFL3BNuGwczfD1vommNW5gglvbCOWAlSC6vbm760aDIZ_TmoRlTKKH8FZx4opKbPEUMmtl5wT18kJ9BxX_2?purpose=fullsize)
 
@@ -810,11 +810,11 @@ Bilkul. **ProManage** ko hum normal “Jira clone” nahi banayenge. Isko tumhar
 
 ![Image](https://images.openai.com/static-rsc-4/vNeNjIOK2EEAQcZaOCMIQ1qBnM3d_nUtLfsFHpsfcCvQltm5siT1OnHwUKdu9qGCSUFOHZlCEMVWmvaA-VsNc2ZlyQlNLM6CTAnUdccNjO7mNCpFEwCFALpP7l1joOg33Ev7Uz0pLV8v42bsIf62-_tBE4eLUVKpGR0-ym5nk9kxDl9lTcI11yfS03DswaP2?purpose=fullsize)
 
-# 🚀 ProManage — Project Management SaaS
+# 🚀 Kanbrix — Project Management SaaS
 
 ### Simple concept
 
-Companies ProManage par account banayengi.
+Companies Kanbrix par account banayengi.
 
 Phir:
 
@@ -838,7 +838,7 @@ Reports / Analytics
 
 Example:
 
-**ABC Software House** ProManage join karti hai.
+**ABC Software House** Kanbrix join karti hai.
 
 Uska workspace:
 
@@ -1288,7 +1288,7 @@ Isse tum **auditability** samjhoge.
 Global search:
 
 ```text
-Search ProManage...
+Search Kanbrix...
 
 "authentication"
 ```
@@ -1699,7 +1699,7 @@ redis
 
 # 🧠 Is project ka asli purpose
 
-Tum sirf **ProManage banana** nahi seekh rahe.
+Tum sirf **Kanbrix banana** nahi seekh rahe.
 
 Tum ye seekh rahe ho:
 

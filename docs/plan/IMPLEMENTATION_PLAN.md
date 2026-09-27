@@ -1,4 +1,4 @@
-# ProManage — Implementation Plan
+# Kanbrix — Implementation Plan
 
 **Multi-Tenant SaaS Project Management & Billing Platform**
 
@@ -51,7 +51,7 @@
 
 ### 1.1 Purpose of this document
 
-This is the master engineering plan for **ProManage**. It defines _what_ is built, _why_ each architectural decision was taken, and _in what order_ the work happens. It is written as a specification, not a tutorial: every phase states its deliverables, its Definition of Done, and its acceptance criteria, so progress is measurable rather than felt.
+This is the master engineering plan for **Kanbrix**. It defines _what_ is built, _why_ each architectural decision was taken, and _in what order_ the work happens. It is written as a specification, not a tutorial: every phase states its deliverables, its Definition of Done, and its acceptance criteria, so progress is measurable rather than felt.
 
 The project has two goals, and both are first-class:
 
@@ -88,7 +88,7 @@ This is deliberately **not** an AI-generated codebase.
 
 ### 2.1 Vision
 
-> ProManage lets a company create an isolated workspace, invite its team with scoped roles, run projects on a Kanban board, collaborate in real time, and operate within the limits of a subscription plan.
+> Kanbrix lets a company create an isolated workspace, invite its team with scoped roles, run projects on a Kanban board, collaborate in real time, and operate within the limits of a subscription plan.
 
 Positioning: a simplified but production-grade Linear/Jira, including the SaaS spine — tenancy, roles, billing limits, audit — that toy clones always omit.
 
@@ -2358,7 +2358,7 @@ No phase is closed until:
 ### 26.1 Layout
 
 ```
-promanage/
+kanbrix/
 ├── client/                    React application (§20.1)
 ├── server/
 │   ├── src/
@@ -2462,27 +2462,27 @@ One short file per significant decision: context, options considered, decision, 
 
 ### Appendix A — Environment variables
 
-| Variable                                                                  | Example                                          | Notes                                 |
-| ------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------- |
-| `NODE_ENV`                                                                | `development`                                    |                                       |
-| `PORT`                                                                    | `5000`                                           |                                       |
-| `API_BASE_URL`                                                            | `http://localhost:5000`                          |                                       |
-| `CLIENT_URL`                                                              | `http://localhost:5173`                          | CORS origin, email links              |
-| `MONGO_URI`                                                               | `mongodb://mongo:27017/promanage?replicaSet=rs0` | Replica set required for transactions |
-| `REDIS_URL`                                                               | `redis://redis:6379`                             |                                       |
-| `JWT_ACCESS_SECRET`                                                       | —                                                | ≥ 32 random bytes                     |
-| `JWT_ACCESS_EXPIRES`                                                      | `15m`                                            |                                       |
-| `REFRESH_TOKEN_EXPIRES_DAYS`                                              | `7`                                              |                                       |
-| `BCRYPT_ROUNDS`                                                           | `12`                                             |                                       |
-| `COOKIE_DOMAIN`                                                           | `localhost`                                      |                                       |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS`                     | MailHog locally                                  |                                       |
-| `EMAIL_FROM`                                                              | `ProManage <no-reply@promanage.app>`             |                                       |
-| `STORAGE_DRIVER`                                                          | `s3` \| `cloudinary` \| `local`                  |                                       |
-| `S3_BUCKET` / `S3_REGION` / `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | —                                                |                                       |
-| `MAX_FILE_SIZE_MB`                                                        | `10`                                             |                                       |
-| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX`                                 | `900000` / `300`                                 |                                       |
-| `LOG_LEVEL`                                                               | `debug`                                          |                                       |
-| `ENABLE_SWAGGER`                                                          | `true`                                           | Must be `false` in production         |
+| Variable                                                                  | Example                                        | Notes                                 |
+| ------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------- |
+| `NODE_ENV`                                                                | `development`                                  |                                       |
+| `PORT`                                                                    | `5000`                                         |                                       |
+| `API_BASE_URL`                                                            | `http://localhost:5000`                        |                                       |
+| `CLIENT_URL`                                                              | `http://localhost:5173`                        | CORS origin, email links              |
+| `MONGO_URI`                                                               | `mongodb://mongo:27017/kanbrix?replicaSet=rs0` | Replica set required for transactions |
+| `REDIS_URL`                                                               | `redis://redis:6379`                           |                                       |
+| `JWT_ACCESS_SECRET`                                                       | —                                              | ≥ 32 random bytes                     |
+| `JWT_ACCESS_EXPIRES`                                                      | `15m`                                          |                                       |
+| `REFRESH_TOKEN_EXPIRES_DAYS`                                              | `7`                                            |                                       |
+| `BCRYPT_ROUNDS`                                                           | `12`                                           |                                       |
+| `COOKIE_DOMAIN`                                                           | `localhost`                                    |                                       |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS`                     | MailHog locally                                |                                       |
+| `EMAIL_FROM`                                                              | `Kanbrix <no-reply@kanbrix.app>`               |                                       |
+| `STORAGE_DRIVER`                                                          | `s3` \| `cloudinary` \| `local`                |                                       |
+| `S3_BUCKET` / `S3_REGION` / `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | —                                              |                                       |
+| `MAX_FILE_SIZE_MB`                                                        | `10`                                           |                                       |
+| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX`                                 | `900000` / `300`                               |                                       |
+| `LOG_LEVEL`                                                               | `debug`                                        |                                       |
+| `ENABLE_SWAGGER`                                                          | `true`                                         | Must be `false` in production         |
 
 Startup validates this set with a Zod schema and **exits on a missing or malformed value** — failing at boot beats failing at 2 a.m.
 

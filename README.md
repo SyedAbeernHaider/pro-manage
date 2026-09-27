@@ -1,6 +1,6 @@
-# ProManage
+# Kanbrix
 
-ProManage is a full-stack project management application currently under development.
+Kanbrix is a full-stack project management application currently under development.
 
 The project is organized as a monorepo and is being built with a React frontend, backend services, MongoDB, Redis, and shared development tooling.
 
@@ -22,7 +22,7 @@ The project is organized as a monorepo and is being built with a React frontend,
 ## Project Structure
 
 ```text
-promanage/
+kanbrix/
 ├── client/                 # Frontend application
 ├── docs/
 │   └── adr/                # Architecture Decision Records
@@ -61,7 +61,7 @@ docker compose version
 
 ```bash
 git clone <repository-url>
-cd promanage
+cd kanbrix
 ```
 
 ### 2. Configure environment variables
@@ -102,7 +102,7 @@ cd ..
 
 ### 4. Start local infrastructure
 
-ProManage currently uses Docker Compose for local infrastructure.
+Kanbrix currently uses Docker Compose for local infrastructure.
 
 Start the services:
 

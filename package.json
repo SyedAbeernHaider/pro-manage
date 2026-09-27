@@ -1,5 +1,5 @@
 {
-  "name": "promanage-root",
+  "name": "kanbrix-root",
   "version": "1.0.0",
   "private": true,
   "description": "Multi-tenant SaaS project management monorepo",

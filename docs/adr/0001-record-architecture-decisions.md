@@ -5,7 +5,7 @@
 
 ## Context
 
-ProManage is being developed as a full-stack application with a frontend application, local infrastructure, development tooling, and supporting services.
+Kanbrix is being developed as a full-stack application with a frontend application, local infrastructure, development tooling, and supporting services.
 
 The project already contains several architectural and development-environment decisions, including:
 
@@ -26,7 +26,7 @@ As the project grows, important architectural decisions need to remain documente
 
 ## Decision
 
-ProManage will use Architecture Decision Records (ADRs) to document significant architectural and technical decisions.
+Kanbrix will use Architecture Decision Records (ADRs) to document significant architectural and technical decisions.
 
 ADR files will be stored under:
 
@@ -118,7 +118,7 @@ The following statuses may be used:
 At the time this ADR convention was introduced, the project foundation includes:
 
 ```text
-ProManage
+Kanbrix
 │
 ├── React / Vite frontend
 │
