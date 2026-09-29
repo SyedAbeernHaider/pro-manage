@@ -34,7 +34,7 @@ const NAV_MENUS = [
         icon: 'chart',
       },
     ],
-    footer: 'Explore all features',
+    footer: { label: 'Explore all features', to: '/features' },
   },
   {
     id: 'solutions',
@@ -444,18 +444,15 @@ const DropdownMenu = ({ menu, open, onSelect }) => (
     </div>
 
     {menu.footer && (
-      <a
-        href="#"
+      <Link
+        to={menu.footer.to}
         className="dropdown-footer"
         tabIndex={open ? 0 : -1}
-        onClick={(e) => {
-          e.preventDefault();
-          onSelect();
-        }}
+        onClick={onSelect}
       >
-        <span>{menu.footer}</span>
+        <span>{menu.footer.label}</span>
         <ArrowIcon className="dropdown-footer-arrow" />
-      </a>
+      </Link>
     )}
   </div>
 );

@@ -1,4 +1,3 @@
-import Navbar from '../components/Navbar';
 import SocialProof from '../components/home/SocialProof';
 import InteractiveShowcase from '../components/home/InteractiveShowcase';
 import BentoGridFeatures from '../components/home/BentoGridFeatures';
@@ -12,7 +11,6 @@ import Hero from '../components/home/Hero';
 
 const Home = () => (
   <>
-    <Navbar />
     <main>
       <Hero />
       <SocialProof />
